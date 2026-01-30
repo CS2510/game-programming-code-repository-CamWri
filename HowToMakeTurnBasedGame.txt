@@ -1,0 +1,10 @@
+Have an invisible game object that keeps the order of who is up
+
+For the creature that is up, you call their component to do x ability when the input is pressed
+    - What would be the best way to make this system. Maybe have a flag for who is currenly up and then
+    in a component, have the input handling for abilities (seems like a lot to manage)
+    - Maybe you have a component with all the abilities in it as functions, and you just call the
+    function for that creature in the turn based order combat?
+    - Maybe each attack is a component, and maybe some variables to adjust stuff like cost, target
+    and damage and then you have a attack manager that takes one of those components?
+    - Create a generic child component for monster attacks and player characters and npc's
