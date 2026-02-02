@@ -4,4 +4,8 @@ class Component{
     get transform(){
         return this.gameObject.transform
     }
+
+    start(){
+        
+    }
 }

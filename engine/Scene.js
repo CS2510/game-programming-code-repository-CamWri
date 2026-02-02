@@ -8,6 +8,13 @@ class Scene{
         return gameObject
     }
 
+    start() {
+        for (const gameObject of this.gameObjects) {
+            gameObject.start()
+            gameObject.hasStarted = true
+        }
+    }
+
     update(){
         for(const gameObject of this.gameObjects){
             gameObject.update()

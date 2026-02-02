@@ -19,6 +19,8 @@ class TurnBaseManagerComponent extends Component{
     }
 
     start(){
+        this.currentMoveAction = this.currentCharacter.components.find(a => a instanceof MoveActionComponent)
+
         this.selectorGameObject.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
     }
 
@@ -35,33 +37,32 @@ class TurnBaseManagerComponent extends Component{
             this.enemyTurn()
         }
 
-        if(Input.keysDown.includes("KeyE") && !isEnemy){
+        //Temporarily remove enemy logic so I can skip enemies turns
+        if(Input.keysDown.includes("KeyE")){// && !isEnemy){
             this.endTurn()
         }
     }
 
     endTurn(){
-        if(this.hasMovement = false){
-            this.nextTurn()
-        }
+        this.nextTurn()
     }
 
     nextTurn(){
-        const moveAction = this.currentCharacter.components.find(a => a instanceof MoveActionComponent)
-        moveAction.distanceTraveled = 0
+        if (this.currentMoveAction) {
+            this.currentMoveAction.distanceTraveled = 0
+        }
 
         this.currentIndex++
         this.currentCharacter = this.turnOrder[this.currentIndex % this.turnOrder.length]
+
+        this.currentMoveAction = this.currentCharacter.components.find(a => a instanceof MoveActionComponent)
 
         this.hasMovement = true
     }
 
     waitForPlayerAction(){
-        if(Input.keysDown.includes("KeyM") && this.hasMovement){
-            const moveAction = this.currentCharacter.components.find(a => a instanceof MoveActionComponent)
-            if (moveAction) {
-                moveAction.startExecution(1000)
-            }
+        if(Input.keysDown.includes("KeyM") && this.hasMovement && !this.currentMoveAction.inUse && this.currentMoveAction){
+            this.currentMoveAction.startExecution(1000)
         }
     }
 

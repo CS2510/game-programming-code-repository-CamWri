@@ -1,5 +1,6 @@
 class GameObject{
     components = []
+    hasStarted = false
 
     constructor(){
         this.addComponent(new Transform())
@@ -8,6 +9,12 @@ class GameObject{
     addComponent(component){
         this.components.push(component)
         component.gameObject = this
+    }
+
+    start() {
+        for (const component of this.components) {
+            component.start()
+        }
     }
 
     update(){
