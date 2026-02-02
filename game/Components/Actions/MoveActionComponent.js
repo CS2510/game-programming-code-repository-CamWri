@@ -27,8 +27,8 @@ class MoveActionComponent extends ActionAbilityComponent{
         if(this.distanceTraveled >= this.maxDistance){
             this.turnBaseGameMangerComponent.hasMovement = false
         }
-        
-        super.endExecution()
+        //Keep it here but may not need it
+        //super.endExecution()
     }
 
     update() {

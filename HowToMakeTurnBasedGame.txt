@@ -1,1 +1,18 @@
-Next Thing to Work On: 
+Next Thing to Work On:
+    - Find alternative fix the following bug. If in move mode and click E, you still move the old character and get an error
+        on the second instance of the player
+    - Implement Slash Attack
+
+
+Architecture Change:
+    - Each entity would have action component where each action and the cooldown is shown on what they can do. This only
+    updates when they can use it and the cooldown. Rules (like movement distance as well)
+        - Movement for example would have an extra field called maxMovement that would be on a character
+
+    - If you do an action, then you add the corresponding comopnent to the gameobject so then it can update, draw, and start.
+    At the end of your turn, you then remove the component
+
+Question:
+    - How do I communicate the speed values without instantiating variables in the GameObject class
+    - When we do events, it would make sense that when someone does an action, I send an 
+        event to go to the next person. How would you do it prior to events are done

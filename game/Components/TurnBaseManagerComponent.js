@@ -39,6 +39,9 @@ class TurnBaseManagerComponent extends Component{
 
         //Temporarily remove enemy logic so I can skip enemies turns
         if(Input.keysDown.includes("KeyE")){// && !isEnemy){
+            console.log(this.currentMoveAction)
+            console.log(this.currentCharacter)
+            this.currentMoveAction.endExecution()
             this.endTurn()
         }
     }
@@ -61,6 +64,7 @@ class TurnBaseManagerComponent extends Component{
     }
 
     waitForPlayerAction(){
+        //Movement Action Logic
         if(Input.keysDown.includes("KeyM") && this.hasMovement && !this.currentMoveAction.inUse && this.currentMoveAction){
             this.currentMoveAction.startExecution(1000)
         }

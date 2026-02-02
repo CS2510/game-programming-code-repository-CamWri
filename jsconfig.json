@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "lib":["esnext", "dom"],
+  },
+  "exclude":[
+    "before"
+  ]
+}
