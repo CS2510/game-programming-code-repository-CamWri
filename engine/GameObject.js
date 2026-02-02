@@ -1,4 +1,4 @@
-class GameObjects{
+class GameObject{
     components = []
 
     constructor(){

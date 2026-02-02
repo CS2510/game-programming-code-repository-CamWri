@@ -6,13 +6,12 @@ class Input{
     }
 
     static keyUp(event){
-        Input.keyDown = Input.keyDown.filter(
+        Input.keysDown = Input.keysDown.filter(
             function(element){
-                if(element!=event){
+                if(element!=event.code) 
                     return true
-                } else {
+                else
                     return false
-                }
             })
     }
 }

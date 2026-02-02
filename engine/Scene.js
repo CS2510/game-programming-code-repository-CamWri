@@ -4,6 +4,8 @@ class Scene{
     instantiate(gameObject, position){
         this.gameObjects.push(gameObject)
         gameObject.components[0].position = position
+
+        return gameObject
     }
 
     update(){
