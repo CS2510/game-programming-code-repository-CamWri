@@ -2,7 +2,6 @@ class MainScene extends Scene{
     constructor(){
         super()
         let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 400))
-        let playerSquare2 = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(200, 800))
 
 
         let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 100))
@@ -11,6 +10,9 @@ class MainScene extends Scene{
 
         let playerSelectionGameObejct = this.instantiate(new SelectionIndicatorGameObject(), new Vector2(0, 0))
 
-        this.instantiate(new TurnBasedManagerGameObject([playerSquare, playerSquare2], [enemy1, enemy2, enemy3], playerSelectionGameObejct), new Vector2(0, 0))
+        this.instantiate(new TurnBasedManagerGameObject([playerSquare], [enemy1, enemy2, enemy3], playerSelectionGameObejct), new Vector2(0, 0))
+
+        //let tittleTextGameObject = this.instantiate(new GameObject(), new Vector2(675, 100))
+        //tittleTextGameObject.addComponent(new TextLabel(), {text: "Hello World"})
     }
 }

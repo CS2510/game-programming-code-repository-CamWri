@@ -14,6 +14,6 @@ class PlayerCharacterSquareGameObject extends PlayerCharacterGameObject{
         super({ ...defaultStats, ...customStats })
 
         this.addComponent(new PlayerCharacterComponent())
-        this.addComponent(new MoveActionComponent())
+        this.addComponent(new CharacterComponent(), {abilities: {"Space": MoveActionComponent}})
     }
 }

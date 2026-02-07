@@ -1,4 +1,11 @@
 class ActionAbilityComponent extends Component{
+    static requiredStats = []
+    static maxCooldown = 1
+
+    characterStats = {}
+
+    cooldown = 0
+
     constructor(){
         super()
     }
@@ -8,6 +15,10 @@ class ActionAbilityComponent extends Component{
     }
 
     startExecution(){
+        
+    }
+
+    pauseExecution(){
         
     }
 

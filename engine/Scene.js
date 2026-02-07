@@ -17,6 +17,11 @@ class Scene{
 
     update(){
         for(const gameObject of this.gameObjects){
+            if (!gameObject.hasStarted) {
+                gameObject.start()
+                gameObject.hasStarted = true
+            }
+
             gameObject.update()
         }
     }

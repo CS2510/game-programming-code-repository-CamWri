@@ -16,3 +16,12 @@ Question:
     - How do I communicate the speed values without instantiating variables in the GameObject class
     - When we do events, it would make sense that when someone does an action, I send an 
         event to go to the next person. How would you do it prior to events are done
+
+
+
+With Cooldown, I thought of the following
+- Have all action components be on the game object at once, then, if cooldown = 0, set it to -1 to show its
+    being casted, and then set it back to max cooldown
+
+- Have a dictionary of class and static variable for that class in the CharacterComopnent to persist between actions
+

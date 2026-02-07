@@ -14,6 +14,5 @@ class BasicEnemyGameObject extends EnemyCharacterGameObject{
         super({ ...defaultStats, ...customStats })
         
         this.addComponent(new EnemeyCharacterComponent())
-        this.addComponent(new MoveActionComponent())
     }
 }

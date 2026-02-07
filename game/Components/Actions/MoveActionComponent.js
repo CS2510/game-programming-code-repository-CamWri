@@ -1,65 +1,55 @@
 class MoveActionComponent extends ActionAbilityComponent{
-    /* 
-    To Do: Slight Optimization
-    May be a bit more optimized to count down from max movement rather than keeping 
-    a variable for max distance and then incrementing distance traveled
-    */
+    static requiredStats = ["Speed", "MaxMovement"]
+    static maxCooldown = 1
+
+    characterStats = {}
+
+    cooldown = 0
+
     constructor(){
         super()
-        this.distanceTraveled = 0
-        this.maxDistance = 0
-
-        this.inUse = false
+        this.movementLeft = 300        
     }
 
     start(){
-        this.turnBaseGameMangerGameObject = Engine.currentScene.gameObjects.find(a => a instanceof TurnBasedManagerGameObject)
-        this.turnBaseGameMangerComponent = this.turnBaseGameMangerGameObject.components.find(a => a instanceof TurnBaseManagerComponent)
-    }
-
-    startExecution(totalDistancePossible) {
-        this.inUse = true
-
-        this.maxDistance = totalDistancePossible
+        //START DOESN"T WORK YET WHEN ADDING GAMEOBJECT AFTER RUNTIME
+        
+        //Get the value from MaxMovement and set it equal to movmentLeft
+        //this.movementLeft = this.characterStats["MaxMovement"]
+        //console.log(this.characterStats)
     }
 
     endExecution(){
-        if(this.distanceTraveled >= this.maxDistance){
-            this.turnBaseGameMangerComponent.hasMovement = false
-        }
-        //Keep it here but may not need it
-        //super.endExecution()
+        this.gameObject.components.find(a => a instanceof CharacterComponent).activeAbility = null
+        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof this.constructor))
     }
 
     update() {
-        if(this.inUse){
-            console.log(this.maxDistance - this.distanceTraveled)
-            if(Input.keysDown.includes("ArrowRight")){
-                this.transform.position.x++
-                this.distanceTraveled++
-            }
-            if(Input.keysDown.includes("ArrowLeft")){
-                this.transform.position.x--
-                this.distanceTraveled++
-            }
-            if(Input.keysDown.includes("ArrowDown")){
-                this.transform.position.y++
-                this.distanceTraveled++
-            }
-            if(Input.keysDown.includes("ArrowUp")){
-                this.transform.position.y--
-                this.distanceTraveled++
-            }
+        if(Input.keysDown.includes("ArrowRight")){
+            this.transform.position.x += Time.deltaTime * this.characterStats["Speed"]
+            this.movementLeft--
+        }
+        if(Input.keysDown.includes("ArrowLeft")){
+            this.transform.position.x -= Time.deltaTime * this.characterStats["Speed"]
+            this.movementLeft--
+        }
+        if(Input.keysDown.includes("ArrowDown")){
+            this.transform.position.y += Time.deltaTime * this.characterStats["Speed"]
+            this.movementLeft--
+        }
+        if(Input.keysDown.includes("ArrowUp")){
+            this.transform.position.y -= Time.deltaTime * this.characterStats["Speed"]
+            this.movementLeft--
+        }
 
-            /*
-            Once advanced inputs are done, then I can change this to if "KeyM" was pressed down this frame to
-            allow a movement toggle rather than having a whole seperate button needed
-            */
-            if (Input.keysDown.includes("Space") || this.distanceTraveled >= this.maxDistance) {
-                this.inUse = false
-                this.endExecution()
-            }
+        //Command Objects can do, undo, and lifecycle 
+
+        /*
+        Once advanced inputs are done, then I can change this to if "KeyM" was pressed down this frame to
+        allow a movement toggle rather than having a whole seperate button needed
+        */
+        if (this.movementLeft <= 0) {
+            this.endExecution()
         }
     }
-
 }

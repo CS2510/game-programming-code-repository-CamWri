@@ -19,8 +19,12 @@
     <script src="./engine/GameObject.js"></script>
     <script src="./engine/Component.js"></script>
     <script src="./engine/Input.js"></script>
+    <script src="./engine/Vector2.js"></script>    
+    <script src="./engine/Time.js"></script>    
+
     <script src="./engine/components/Transform.js"></script>
-    
+    <script src="./engine/components/TextLabel.js"></script>
+    <script src="./engine/components/Polygon.js"></script>
     
     <script src="./game/Scenes/MainScene.js"></script>
 
@@ -33,34 +37,20 @@
 
 
     <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterGameObject.js"></script>
-    <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterPentagonGameObject.js"></script>
     <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterSquareGameObject.js"></script>
-    <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterTriangleGameObject.js"></script>
 
 
     <script src="./game/Components/EnemeyCharacterComponent.js"></script>
     <script src="./game/Components/PlayerCharacterComponent.js"></script>
     <script src="./game/Components/SelectorIndicatorComponent.js"></script>
-    <script src="./game/Components/StatsComponent.js"></script>
     <script src="./game/Components/TurnBaseManagerComponent.js"></script>
+    <script src="./game/Components/CharacterComponent.js"></script>
 
     <script src="./game/Components/Actions/ActionAbilityComponent.js"></script>
     <script src="./game/Components/Actions/MoveActionComponent.js"></script>
     <script src="./game/Components/Actions/SlashActionComponent.js"></script>
 
     <script>
-        // Engine-specific
-        // Engine-specific
-        class Vector2 {
-            constructor(x, y){
-                this.x = x
-                this.y = y
-            }
-            
-            x
-            y
-        }
-
         // start()
         Engine.currentScene = new MainScene()
         Engine.start()
