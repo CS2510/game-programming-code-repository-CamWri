@@ -47,6 +47,7 @@ class CharacterComponent extends Component{
 
 
             if(Input.keysDown.includes("KeyE")){
+                this.activeAbility.endExecution()
                 this.endTurn()
             }
         }
@@ -54,8 +55,9 @@ class CharacterComponent extends Component{
 
     endTurn(){
         this.abilitiyCooldowns.forEach((value, key, map) => {
-            map.set(key, value - 1);
+            map.set(key, Math.max(0, value - 1));
         });
+
 
         this.gameObject.components = this.gameObject.components.filter(b => !(b instanceof ActionComponent))
         Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
