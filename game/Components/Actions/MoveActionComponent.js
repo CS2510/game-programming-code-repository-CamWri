@@ -1,4 +1,4 @@
-class MoveActionComponent extends ActionAbilityComponent{
+class MoveActionComponent extends ActionComponent{
     static requiredStats = ["Speed", "MaxMovement"]
     static maxCooldown = 1
 

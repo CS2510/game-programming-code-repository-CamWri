@@ -1,4 +1,4 @@
-class ActionAbilityComponent extends Component{
+class ActionComponent extends Component{
     static requiredStats = []
     static maxCooldown = 1
 

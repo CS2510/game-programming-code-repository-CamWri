@@ -1,4 +1,4 @@
-class SlashActionComponent extends ActionAbilityComponent{
+class SlashActionComponent extends ActionComponent{
     constructor(){
         super()
     }

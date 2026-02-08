@@ -57,7 +57,7 @@ class CharacterComponent extends Component{
             map.set(key, value - 1);
         });
 
-        this.gameObject.components = this.gameObject.components.filter(b => !(b instanceof ActionAbilityComponent))
+        this.gameObject.components = this.gameObject.components.filter(b => !(b instanceof ActionComponent))
         Engine.currentScene.gameObjects.find(a => a instanceof TurnBasedManagerGameObject).components.find(b => b instanceof TurnBaseManagerComponent).endTurn()
     }
 }
