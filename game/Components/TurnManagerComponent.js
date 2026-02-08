@@ -1,9 +1,9 @@
-class TurnBaseManagerComponent extends Component{
-    constructor(characterGameObjects, enemyGameObjects , selectorGameObject){
+class TurnManagerComponent extends Component{
+    constructor(characterGameObjects, enemyGameObjects , turnIndicatior){
         super()
 
         //Will be able to remove when doing GameObject Heirarchies 
-        this.selectorGameObject = selectorGameObject
+        this.turnIndicatior = turnIndicatior
 
         //REQUIRED
         this.currentIndex = 0
@@ -13,12 +13,12 @@ class TurnBaseManagerComponent extends Component{
 
     start(){
         //Will be able to remove when doing GameObject Heirarchies 
-        this.selectorGameObject.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
+        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
     }
 
     update(){
         //Will be able to remove when doing GameObject Heirarchies 
-        this.selectorGameObject.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
+        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
 
         //See if the current person is an enemy or a player character
         let isEnemy = this.currentCharacter instanceof EnemyCharacterGameObject

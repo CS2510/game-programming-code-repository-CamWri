@@ -58,6 +58,6 @@ class CharacterComponent extends Component{
         });
 
         this.gameObject.components = this.gameObject.components.filter(b => !(b instanceof ActionComponent))
-        Engine.currentScene.gameObjects.find(a => a instanceof TurnBasedManagerGameObject).components.find(b => b instanceof TurnBaseManagerComponent).endTurn()
+        Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
     }
 }
