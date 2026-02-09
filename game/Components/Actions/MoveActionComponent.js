@@ -25,27 +25,34 @@ class MoveActionComponent extends ActionComponent{
     }
 
     update() {
+        let movementChange = new Vector2(0, 0)
+
         if(Input.keysDown.includes("ArrowRight")){
-            this.transform.position.x += Time.deltaTime * this.characterStats["Speed"]
-            this.movementLeft--
+            movementChange.x = 1
         }
         if(Input.keysDown.includes("ArrowLeft")){
-            this.transform.position.x -= Time.deltaTime * this.characterStats["Speed"]
-            this.movementLeft--
+            movementChange.x = -1
         }
         if(Input.keysDown.includes("ArrowDown")){
-            this.transform.position.y += Time.deltaTime * this.characterStats["Speed"]
-            this.movementLeft--
+            movementChange.y = 1
         }
         if(Input.keysDown.includes("ArrowUp")){
-            this.transform.position.y -= Time.deltaTime * this.characterStats["Speed"]
-            this.movementLeft--
+            movementChange.y = -1
         }
+
+        let totalMovementChange = new Vector2(movementChange.x * this.characterStats["Speed"] * Time.deltaTime, movementChange.y * this.characterStats["Speed"] * Time.deltaTime)
+
+        this.movementLeft -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
+
+        console.log(this.movementLeft)
+
+        this.transform.position.x += totalMovementChange.x
+        this.transform.position.y += totalMovementChange.y
 
         //Command Objects can do, undo, and lifecycle 
 
         /*
-        Once advanced inputs are done, then I can change this to if "KeyM" was pressed down this frame to
+        Once advanced inputs are done, then I can change this to if Space was pressed down this frame to
         allow a movement toggle rather than having a whole seperate button needed
         */
         if (this.movementLeft <= 0) {
