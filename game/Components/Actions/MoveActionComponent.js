@@ -16,7 +16,7 @@ class MoveActionComponent extends ActionComponent{
         
         //Get the value from MaxMovement and set it equal to movmentLeft
         //this.movementLeft = this.characterStats["MaxMovement"]
-        //console.log(this.characterStats)
+        console.log(this.characterStats)
     }
 
     endExecution(){
@@ -43,8 +43,6 @@ class MoveActionComponent extends ActionComponent{
         let totalMovementChange = new Vector2(movementChange.x * this.characterStats["Speed"] * Time.deltaTime, movementChange.y * this.characterStats["Speed"] * Time.deltaTime)
 
         this.movementLeft -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
-
-        console.log(this.movementLeft)
 
         this.transform.position.x += totalMovementChange.x
         this.transform.position.y += totalMovementChange.y

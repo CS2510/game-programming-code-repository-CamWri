@@ -14,5 +14,8 @@ class MainScene extends Scene{
 
         //let tittleTextGameObject = this.instantiate(new GameObject(), new Vector2(675, 100))
         //tittleTextGameObject.addComponent(new TextLabel(), {text: "Hello World"})
+
+        //Eventually, create an action display game object that shows the input needed to activate it, the cooldown,
+            //and what the ability is
     }
 }
