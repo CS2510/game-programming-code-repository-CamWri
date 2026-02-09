@@ -47,7 +47,9 @@ class CharacterComponent extends Component{
 
 
             if(Input.keysDown.includes("KeyE")){
-                this.activeAbility.endExecution()
+                if(this.activeAbility){
+                    this.activeAbility.endExecution()
+                }
                 this.endTurn()
             }
         }

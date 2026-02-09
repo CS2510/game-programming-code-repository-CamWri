@@ -2,7 +2,7 @@ class Polygon extends Component{
     points = []
     fillStyle = "black"
     strokeStyle = "transparent"
-    linewidth = 5
+    lineWidth = 5
 
     draw(ctx){
         ctx.save()
@@ -19,7 +19,7 @@ class Polygon extends Component{
 
         ctx.fillStyle = this.fillStyle
         ctx.strokeStyle = this.strokeStyle
-        ctx.linewidth = this.linewidth
+        ctx.lineWidth = this.lineWidth
 
         ctx.stroke()
         ctx.fill()
