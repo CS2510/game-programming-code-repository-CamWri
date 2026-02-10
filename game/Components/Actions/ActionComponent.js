@@ -4,7 +4,7 @@ class ActionComponent extends Component{
 
     characterStats = {}
 
-    cooldown = 0
+    player
 
     constructor(){
         super()

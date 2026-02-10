@@ -1,4 +1,4 @@
-class MainScene extends Scene{
+class BattleScene extends Scene{
     constructor(){
         super()
         let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 400))

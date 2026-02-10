@@ -1,9 +1,27 @@
 Next Thing to Work On:
     - Basic UI that shows current abilities, input to activate them, and the cooldown 
-
+    - Make it so that you can dynamically have battle scenes where I can control the enemies
 
 Architecture Change:
 
 
-Question:
+Lasts Weeks QA's: 
+Can I make my repo for my turn based game public so students can reference my code for the CSCI2510 GitHub course/classroom
+Yes I can
+When explaining this weeks content, can I just download your version from GitHub so students can recognize the base/starting point without the Turn Based Game File system and all that stuff
+Yes 
+Go over with Ricks my cooldown system logic and see if its good
+Say if I were to spawn an energy bolt, how would you do that since you want to instantiate a new game object rather than just adding a component to the existing game object. 
+Maybe has a component that just spawns in the game object. Then, when that game object collides with the enemy, go to the TurnManagerComponent, get the current Game Object, and reset their current ability. (With events this would be
+ easy but that is not possible right now)
+Keep a reference inside the actionability component and once that projectile components t that you instantiated doesn't exist anymore, then it is over
+UI Without game object hierarchies 
+Dictionaryb of all the positions possible for actions UI stuff, and just update in the TurnBasedManger the text, cooldown display etc. 
+Big picture, I want a scene to explore and then encounter enemies which take me to a new scene. How would I make it dynamic so I don't create a whole new scene for each encounter possible. How would I also balance it, would my player
+ character have a flag that switches between in combat and out, or would it be a whole separate game object
+When you hit an enemy, it updates the  global variables to say what enemy and players are there and then the start function in a component will read global to then populate everything
+If we do enable/disable, I could just have a global flag that states if we are in free roam, enable these game objects, if turn based, enable the other game objects
 
+New Questions:
+How do I make the selection of an emery when doing an attack reusable because I don't want it on every Action, but don't want to copy and paste the code
+consistantly over and over again

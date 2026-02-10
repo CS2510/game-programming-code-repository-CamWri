@@ -10,8 +10,6 @@ class FastEnemyGameObject extends EnemyCharacterGameObject{
         Always updates stats the be the latest one, so if defaultStats has HP and customStats has HP, then it would take
             the customStats one
         */
-        super({ ...defaultStats, ...customStats })
-        
-        this.addComponent(new EnemeyCharacterComponent())
+        super({ ...defaultStats, ...customStats })        
     }
 }

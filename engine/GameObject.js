@@ -10,6 +10,11 @@ class GameObject{
         Object.assign(component, options)
         this.components.push(component)
         component.gameObject = this
+
+        if (this.hasStarted) {
+            component.start?.()
+        }
+
         return component
     }
 
@@ -17,7 +22,7 @@ class GameObject{
         for (const component of this.components) {
             component.start()
         }
-    }
+    }1
 
     update(){
         if (!this.hasStarted) {

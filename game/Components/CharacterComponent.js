@@ -26,9 +26,9 @@ class CharacterComponent extends Component{
             for (const key in this.abilities) {
                 // @ts-ignore
                 if (Input.keysDown.includes(key) && !this.activeAbility) {
-                    const ActionClass = this.abilities[key]
+                    let ActionClass = this.abilities[key]
 
-                    const action = new ActionClass()
+                    let action = new ActionClass()
 
                     if(this.abilitiyCooldowns.get(ActionClass) == 0){
                         // Pull only what the action wants
@@ -40,7 +40,7 @@ class CharacterComponent extends Component{
                         this.activeAbility = action
                         this.abilitiyCooldowns.set(ActionClass, ActionClass.maxCooldown)
 
-                        this.gameObject.addComponent(action, {characterStats: neededStats})
+                        this.gameObject.addComponent(action, {characterStats: neededStats, player: this.gameObject})
                     }
                 }
             }

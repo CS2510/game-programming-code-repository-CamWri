@@ -26,19 +26,20 @@
     <script src="./engine/components/TextLabel.js"></script>
     <script src="./engine/components/Polygon.js"></script>
     
-    <script src="./game/Scenes/MainScene.js"></script>
+    <script src="./game/Scenes/BattleScene.js"></script>
 
     <script src="./game/GameObjects/TurnIndicatorGameObject.js"></script>
     <script src="./game/GameObjects/TurnManagerGameObject.js"></script>
+    <script src="./game/GameObjects/AbilityCooldownGameObject.js"></script>
 
     <script src="./game/GameObjects/EnemyCharacters/EnemyCharacterGameObject.js"></script>
     <script src="./game/GameObjects/EnemyCharacters/BasicEnemyGameObject.js"></script>
     <script src="./game/GameObjects/EnemyCharacters/FastEnemyGameObject.js"></script>
 
-
     <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterGameObject.js"></script>
     <script src="./game/GameObjects/PlayerCharacters/PlayerCharacterSquareGameObject.js"></script>
 
+    <script src="./game/GameObjects/Projectile/SlashProjectileGameObject.js"></script>
 
     <script src="./game/Components/TurnManagerComponent.js"></script>
     <script src="./game/Components/CharacterComponent.js"></script>
@@ -49,7 +50,7 @@
 
     <script>
         // start()
-        Engine.currentScene = new MainScene()
+        Engine.currentScene = new BattleScene()
         Engine.start()
     </script>
 </body>

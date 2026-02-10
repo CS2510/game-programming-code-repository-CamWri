@@ -4,7 +4,7 @@ class MoveActionComponent extends ActionComponent{
 
     characterStats = {}
 
-    cooldown = 0
+    player
 
     constructor(){
         super()

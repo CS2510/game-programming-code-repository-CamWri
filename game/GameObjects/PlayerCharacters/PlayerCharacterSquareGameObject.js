@@ -14,6 +14,6 @@ class PlayerCharacterSquareGameObject extends PlayerCharacterGameObject{
         super({ ...defaultStats, ...customStats })
 
         this.addComponent(new Polygon, {points: [new Vector2(0, 0), new Vector2(0, 50), new Vector2(-50, 50), new Vector2(-50, 0)], strokeStyle: "green", lineWidth: 10})
-        this.addComponent(new CharacterComponent(), {abilities: {"Space": MoveActionComponent}})
+        this.addComponent(new CharacterComponent(), {abilities: {"Space": MoveActionComponent, "Digit1": SlashActionComponent}})
     }
 }
