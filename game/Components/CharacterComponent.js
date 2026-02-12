@@ -2,7 +2,7 @@ class CharacterComponent extends Component{
     hasPriority = false
     
     // Stats keyword: value
-    stats = {"Speed": 100, "MaxMovement": 500}
+    stats = {"Speed": 100, "MaxMovement": 350}
 
     abilities
 
@@ -17,7 +17,6 @@ class CharacterComponent extends Component{
     start(){
         for (const key in this.abilities) {
             this.abilitiyCooldowns.set(this.abilities[key], 0)
-            //this.abilities[key].maxCooldown
         }
     }
 

@@ -4,8 +4,6 @@ class ActionComponent extends Component{
 
     characterStats = {}
 
-    player
-
     constructor(){
         super()
     }
@@ -22,7 +20,8 @@ class ActionComponent extends Component{
         
     }
 
-    endExecution(){
-
+    endExecution(ActionComponent){
+        this.gameObject.getComponent(CharacterComponent).activeAbility = null
+        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof ActionComponent))
     }
 }

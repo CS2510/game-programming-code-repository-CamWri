@@ -1,13 +1,7 @@
-class SlashActionComponent extends TargetEnemyActionComponent{
+class SlashActionComponent extends TargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 2
     static maxTargets = 2
-
-    characterStats = {}
-    
-    player
-
-    enemySelectorIndex = 0
 
     slashProjectials = []
 
@@ -17,19 +11,8 @@ class SlashActionComponent extends TargetEnemyActionComponent{
         super()
     }
 
-    //Maybe have it so where backspace/delete removes the latest one being added instead of clicking space on an already selected one
-    //You would need to add and remove it from currentTargets, I would have to make it where its a list of this.enimes but I exlciude anything from this.currentTargets
-
     start(){
-        //Wouldn't use static because its only for that class, move methods and variables that have common overlap to the highest possible inheritence
-        //super.start()
-
-        this.enemies = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
-        this.currentTargets = []
-
-        this.currentSelectedEnemy = this.enemies[this.enemySelectorIndex]
-
-        this.changeSelectedEnemy(0)
+        super.start(Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject))
     }
 
     update() {
@@ -40,11 +23,11 @@ class SlashActionComponent extends TargetEnemyActionComponent{
             if (Input.keysDown.includes("ArrowLeft")) this.changeSelectedEnemy(-1)
 
             if(Input.keysDown.includes("Space")) {
-                if (this.currentTargets.includes(this.currentSelectedEnemy)){
+                if (this.currentTargets.includes(this.currentSelectedTargets)){
                     this.deselectEnemy()
                 }
 
-                if(!this.currentTargets.includes(this.currentSelectedEnemy) && SlashActionComponent.maxTargets > this.currentTargets.length){
+                if(!this.currentTargets.includes(this.currentSelectedTargets) && SlashActionComponent.maxTargets > this.currentTargets.length){
                     this.selectEnemy()
                 }
             }
@@ -52,7 +35,7 @@ class SlashActionComponent extends TargetEnemyActionComponent{
             if(Input.keysDown.includes("Enter")){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
-                    let slashProjectile = Engine.currentScene.instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.player.transform.position.x, this.player.transform.position.y))
+                    let slashProjectile = Engine.currentScene.instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
                     this.slashProjectials.push(slashProjectile)
                 }
             }
@@ -63,39 +46,18 @@ class SlashActionComponent extends TargetEnemyActionComponent{
     }
 
     changeSelectedEnemy(direction) {
-        let polygon = this.currentSelectedEnemy.getComponent(Polygon)
-        if (polygon && polygon.strokeStyle != "blue") polygon.strokeStyle = "red"
-
-        this.enemySelectorIndex = (this.enemySelectorIndex + direction) % this.enemies.length
-
-        this.currentSelectedEnemy = this.enemies[this.enemySelectorIndex]
-
-        let newPolygon = this.currentSelectedEnemy.getComponent(Polygon)
-        if (newPolygon && newPolygon.strokeStyle != "blue") newPolygon.strokeStyle = "yellow"
+        super.changeSelectedEnemy(direction)
     }
 
     selectEnemy(){
-        let polygon = this.currentSelectedEnemy.getComponent(Polygon)
-        if (polygon) polygon.strokeStyle = "blue"
-
-        this.currentTargets.push(this.currentSelectedEnemy)
+        super.selectEnemy()
     }
 
     deselectEnemy() {
-        this.currentTargets = this.currentTargets.filter(
-            enemy => enemy !== this.currentSelectedEnemy
-        )
-
-        let polygon = this.currentSelectedEnemy.getComponent(Polygon)
-        if (polygon) polygon.strokeStyle = "yellow"
+        super.deselectEnemy()
     }
 
     endExecution(){
-        for (let enemy of this.enemies){
-            enemy.getComponent(Polygon).strokeStyle = "red"
-        }
-
-        this.gameObject.components.find(a => a instanceof CharacterComponent).activeAbility = null
-        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof this.constructor))
+        super.endExecution(this.constructor)
     }
 }

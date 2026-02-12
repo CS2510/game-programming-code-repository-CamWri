@@ -2,23 +2,16 @@ class MoveActionComponent extends ActionComponent{
     static requiredStats = ["Speed", "MaxMovement"]
     static maxCooldown = 1
 
-    characterStats = {}
-
-    player
-
     constructor(){
         super()
-        this.movementLeft = 300        
     }
 
     start(){        
-        //Get the value from MaxMovement and set it equal to movmentLeft
-        //this.movementLeft = this.characterStats["MaxMovement"]
+        this.movementLeft = this.characterStats["MaxMovement"]
     }
 
     endExecution(){
-        this.gameObject.components.find(a => a instanceof CharacterComponent).activeAbility = null
-        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof this.constructor))
+        super.endExecution(this.constructor)
     }
 
     update() {
