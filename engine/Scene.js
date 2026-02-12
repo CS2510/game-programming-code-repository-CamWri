@@ -23,6 +23,10 @@ class Scene{
             }
 
             gameObject.update()
+
+            this.gameObjects.filter(go => go.markForDestroy).forEach(go => go.broadCastMessaege("onDestroy"))
+
+            this.gameObjects = this.gameObjects.filter(go => !go.markForDestroy)
         }
     }
 
@@ -31,4 +35,8 @@ class Scene{
             gameObject.draw(ctx)
         }
     }
+}
+
+function instantiate(gameObject, position){
+    Engine.currentScene.instantiate(gameObject, position)
 }

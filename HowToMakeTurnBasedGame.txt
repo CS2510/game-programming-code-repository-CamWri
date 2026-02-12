@@ -1,6 +1,5 @@
 Next Thing to Work On:
     - Basic UI that shows current abilities, input to activate them, and the cooldown 
-    - Make it so that you can dynamically have battle scenes where I can control the enemies
 
 Architecture Change:
 
@@ -23,5 +22,6 @@ When you hit an enemy, it updates the  global variables to say what enemy and p
 If we do enable/disable, I could just have a global flag that states if we are in free roam, enable these game objects, if turn based, enable the other game objects
 
 New Questions:
-How do I make the selection of an emery when doing an attack reusable because I don't want it on every Action, but don't want to copy and paste the code
+How do I make the selection of an enemy when doing an attack reusable because I don't want it on every Action, but don't want to copy and paste the code
 consistantly over and over again
+Do I need to do the component destruction the same way as Game Object for components? Would I remove game objects first then components?

@@ -1,9 +1,16 @@
 class GameObject{
     components = []
     hasStarted = false
+    markForDestroy = false
 
     constructor(){
         this.addComponent(new Transform())
+    }
+
+    broadCastMessaege(message){
+        for(const compoenent of this.components){
+            compoenent[message]?.()
+        }
     }
 
     addComponent(component, options){
@@ -11,18 +18,14 @@ class GameObject{
         this.components.push(component)
         component.gameObject = this
 
-        if (this.hasStarted) {
-            component.start?.()
-        }
+        component.start?.()
 
         return component
     }
 
     start() {
-        for (const component of this.components) {
-            component.start()
-        }
-    }1
+        this.broadCastMessaege("start")
+    }
 
     update(){
         if (!this.hasStarted) {
@@ -30,15 +33,21 @@ class GameObject{
             this.start()
         }
 
-        for(const component of this.components){
-            component.update?.()
-        }
+        this.broadCastMessaege("update")
     }
 
     draw(ctx){
         for(const component of this.components){
             component.draw?.(ctx)
         }
+    }
+
+    destroy(){
+        this.markForDestroy = true
+    }
+
+    getComponent(type){
+        return this.components.find(c => c instanceof type)
     }
 
     get transform(){

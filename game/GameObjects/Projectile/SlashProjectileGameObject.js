@@ -1,5 +1,5 @@
 class SlashProjectileGameObject extends GameObject {
-    constructor() {
+    constructor(player, targetEnemy) {
         super()
 
         this.addComponent(new Polygon(), {
@@ -34,5 +34,6 @@ class SlashProjectileGameObject extends GameObject {
                 new Vector2(-20, 6.25)
             ]
         })
+        this.addComponent(new ProjectileComponent(), {sourceTransform: player,  targetTransform: targetEnemy, speed: 30})
     }
 }
