@@ -11,12 +11,9 @@ class MoveActionComponent extends ActionComponent{
         this.movementLeft = 300        
     }
 
-    start(){
-        //START DOESN"T WORK YET WHEN ADDING GAMEOBJECT AFTER RUNTIME
-        
+    start(){        
         //Get the value from MaxMovement and set it equal to movmentLeft
         //this.movementLeft = this.characterStats["MaxMovement"]
-        console.log(this.characterStats)
     }
 
     endExecution(){

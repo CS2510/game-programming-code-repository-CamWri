@@ -13,6 +13,6 @@ class BasicEnemyGameObject extends EnemyCharacterGameObject{
         */
         super({ ...defaultStats, ...customStats })
         
-        this.addComponent(new Polygon, {points: [new Vector2(0, 0), new Vector2(0, 50), new Vector2(-50, 50), new Vector2(-50, 0)], strokeStyle: "red", lineWidth: 10})
+        this.addComponent(new Polygon, {points: [new Vector2(-25, -25), new Vector2(-25, 25), new Vector2(25, 25), new Vector2(25, -25)], strokeStyle: "red", lineWidth: 10})
     }
 }

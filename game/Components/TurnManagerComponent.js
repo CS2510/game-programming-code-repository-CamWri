@@ -13,12 +13,12 @@ class TurnManagerComponent extends Component{
 
     start(){
         //Will be able to remove when doing GameObject Heirarchies 
-        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
+        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x, this.currentCharacter.transform.position.y - 50)
     }
 
     update(){
         //Will be able to remove when doing GameObject Heirarchies 
-        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x - 25, this.currentCharacter.transform.position.y - 25)
+        this.turnIndicatior.transform.position = new Vector2(this.currentCharacter.transform.position.x, this.currentCharacter.transform.position.y - 50)
 
         //See if the current person is an enemy or a player character
         let isEnemy = this.currentCharacter instanceof EnemyCharacterGameObject

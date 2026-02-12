@@ -1,5 +1,8 @@
 Next Thing to Work On:
     - Basic UI that shows current abilities, input to activate them, and the cooldown 
+    - Create a parent characterGameObject that then has the children of playerCharacter and enemyCharacter game objects
+    - Create a new children of action component where there is one where you have to select specific enemies, specfic players, or something
+        from both sides. The regualr action component can have direct children that target ones self (i.e movement)
 
 Architecture Change:
 
