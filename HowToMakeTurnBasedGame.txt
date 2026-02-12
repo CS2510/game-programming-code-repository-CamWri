@@ -27,4 +27,7 @@ If we do enable/disable, I could just have a global flag that states if we are i
 New Questions:
 How do I make the selection of an enemy when doing an attack reusable because I don't want it on every Action, but don't want to copy and paste the code
 consistantly over and over again
+    - Move everything from variables and functions up one into the parent class
 Do I need to do the component destruction the same way as Game Object for components? Would I remove game objects first then components?
+    - Yes, I would need a mark for destroy
+    - When a game object is destroyed, mark every component for destroy. Then, in update, remove all components that are marked for destroy

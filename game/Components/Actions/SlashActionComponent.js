@@ -1,4 +1,4 @@
-class SlashActionComponent extends ActionComponent{
+class SlashActionComponent extends TargetEnemyActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 2
     static maxTargets = 2
@@ -21,6 +21,9 @@ class SlashActionComponent extends ActionComponent{
     //You would need to add and remove it from currentTargets, I would have to make it where its a list of this.enimes but I exlciude anything from this.currentTargets
 
     start(){
+        //Wouldn't use static because its only for that class, move methods and variables that have common overlap to the highest possible inheritence
+        //super.start()
+
         this.enemies = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
         this.currentTargets = []
 

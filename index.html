@@ -31,6 +31,7 @@
     <script src="./game/GameObjects/TurnIndicatorGameObject.js"></script>
     <script src="./game/GameObjects/TurnManagerGameObject.js"></script>
     <script src="./game/GameObjects/AbilityCooldownGameObject.js"></script>
+    <script src="./game/GameObjects/CharacterGameObject.js"></script>
 
     <script src="./game/GameObjects/EnemyCharacters/EnemyCharacterGameObject.js"></script>
     <script src="./game/GameObjects/EnemyCharacters/BasicEnemyGameObject.js"></script>
@@ -46,11 +47,14 @@
     <script src="./game/Components/ProjectileComponent.js"></script>
 
     <script src="./game/Components/Actions/ActionComponent.js"></script>
+    <script src="./game/Components/Actions/TargetCharacterActionComponent.js"></script>
+    <script src="./game/Components/Actions/TargetEnemyActionComponent.js"></script>
+    <script src="./game/Components/Actions/TargetPlayerActionComponent.js"></script>
     <script src="./game/Components/Actions/MoveActionComponent.js"></script>
     <script src="./game/Components/Actions/SlashActionComponent.js"></script>
 
+
     <script>
-        // start()
         Engine.currentScene = new BattleScene()
         Engine.start()
     </script>

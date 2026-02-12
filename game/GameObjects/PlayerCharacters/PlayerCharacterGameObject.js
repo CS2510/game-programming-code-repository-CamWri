@@ -1,4 +1,4 @@
-class PlayerCharacterGameObject extends GameObject {
+class PlayerCharacterGameObject extends CharacterGameObject {
     constructor(customStats = {}) {
         super()
     }

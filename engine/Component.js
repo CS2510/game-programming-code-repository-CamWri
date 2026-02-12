@@ -1,5 +1,6 @@
 class Component{
     gameObject
+    markForDestroy = false
 
     get transform(){
         return this.gameObject.transform
@@ -7,5 +8,9 @@ class Component{
 
     start(){
         
+    }
+
+    destroy(){
+        this.markForDestroy = true
     }
 }

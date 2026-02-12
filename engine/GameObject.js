@@ -18,7 +18,9 @@ class GameObject{
         this.components.push(component)
         component.gameObject = this
 
-        component.start?.()
+        if(this.hasStarted){
+            component.start?.()
+        }
 
         return component
     }
@@ -44,6 +46,10 @@ class GameObject{
 
     destroy(){
         this.markForDestroy = true
+        
+        for (let component of this.components){
+            component.destroy()
+        }
     }
 
     getComponent(type){

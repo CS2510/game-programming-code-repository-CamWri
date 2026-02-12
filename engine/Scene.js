@@ -21,13 +21,19 @@ class Scene{
                 gameObject.start()
                 gameObject.hasStarted = true
             }
-
+        
             gameObject.update()
-
-            this.gameObjects.filter(go => go.markForDestroy).forEach(go => go.broadCastMessaege("onDestroy"))
-
-            this.gameObjects = this.gameObjects.filter(go => !go.markForDestroy)
         }
+
+        for(const gameObject of this.gameObjects){
+            gameObject.components.filter(comp => comp.markForDestroy).forEach(comp => comp.onDestroy?.())
+
+            gameObject.components = gameObject.components.filter(comp => !comp.markForDestroy)
+        }
+
+        this.gameObjects.filter(go => go.markForDestroy).forEach(go => go.broadCastMessaege("onDestroy"))
+
+        this.gameObjects = this.gameObjects.filter(go => !go.markForDestroy)
     }
 
     draw(ctx){
