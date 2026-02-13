@@ -1,7 +1,7 @@
 class TargetActionComponent extends ActionComponent{
     targetSelectionIndex = 0
     targets = []
-    currentSelectedTargets
+    currentSelectedTarget
 
     constructor(){
         super()
@@ -11,7 +11,7 @@ class TargetActionComponent extends ActionComponent{
         this.targets = targets
         this.currentTargets = []
 
-        this.currentSelectedTargets = this.targets[this.targetSelectionIndex]
+        this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
         this.changeSelectedEnemy(0)
     }
@@ -26,30 +26,30 @@ class TargetActionComponent extends ActionComponent{
     }
 
     changeSelectedEnemy(direction) {
-        let polygon = this.currentSelectedTargets.getComponent(Polygon)
+        let polygon = this.currentSelectedTarget.getComponent(Polygon)
         if (polygon && polygon.strokeStyle != "blue") polygon.strokeStyle = "red"
 
         this.targetSelectionIndex = (this.targetSelectionIndex + direction + this.targets.length) % this.targets.length
 
-        this.currentSelectedTargets = this.targets[this.targetSelectionIndex]
+        this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
-        let newPolygon = this.currentSelectedTargets.getComponent(Polygon)
+        let newPolygon = this.currentSelectedTarget.getComponent(Polygon)
         if (newPolygon && newPolygon.strokeStyle != "blue") newPolygon.strokeStyle = "yellow"
     }
 
     selectEnemy(){
-        let polygon = this.currentSelectedTargets.getComponent(Polygon)
+        let polygon = this.currentSelectedTarget.getComponent(Polygon)
         if (polygon) polygon.strokeStyle = "blue"
 
-        this.currentTargets.push(this.currentSelectedTargets)
+        this.currentTargets.push(this.currentSelectedTarget)
     }
 
     deselectEnemy(){
         this.currentTargets = this.currentTargets.filter(
-            target => target !== this.currentSelectedTargets
+            target => target !== this.currentSelectedTarget
         )
 
-        let polygon = this.currentSelectedTargets.getComponent(Polygon)
+        let polygon = this.currentSelectedTarget.getComponent(Polygon)
         if (polygon) polygon.strokeStyle = "yellow"
     }
 }

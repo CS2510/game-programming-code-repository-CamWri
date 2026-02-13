@@ -24,11 +24,11 @@ class SlashActionComponent extends TargetActionComponent{
             if (Input.keysDown.includes("ArrowLeft")) this.changeSelectedEnemy(-1)
 
             if(Input.keysDown.includes("Space")) {
-                if (this.currentTargets.includes(this.currentSelectedTargets)){
+                if (this.currentTargets.includes(this.currentSelectedTarget)){
                     this.deselectEnemy()
                 }
 
-                if(!this.currentTargets.includes(this.currentSelectedTargets) && SlashActionComponent.maxTargets > this.currentTargets.length){
+                if(!this.currentTargets.includes(this.currentSelectedTarget) && SlashActionComponent.maxTargets > this.currentTargets.length){
                     this.selectEnemy()
                 }
             }
