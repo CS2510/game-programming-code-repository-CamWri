@@ -44,5 +44,5 @@ class Scene{
 }
 
 function instantiate(gameObject, position){
-    Engine.currentScene.instantiate(gameObject, position)
+    return Engine.currentScene.instantiate(gameObject, position)
 }

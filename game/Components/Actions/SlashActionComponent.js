@@ -12,7 +12,8 @@ class SlashActionComponent extends TargetActionComponent{
     }
 
     start(){
-        super.start(Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject))
+        let enemies = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
+        super.start(enemies)
     }
 
     update() {
@@ -35,7 +36,7 @@ class SlashActionComponent extends TargetActionComponent{
             if(Input.keysDown.includes("Enter")){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
-                    let slashProjectile = Engine.currentScene.instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
+                    let slashProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
                     this.slashProjectials.push(slashProjectile)
                 }
             }
