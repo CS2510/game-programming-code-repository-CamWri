@@ -1,7 +1,7 @@
 class SlashActionComponent extends TargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 2
-    static maxTargets = 2
+    static maxTargets = 1
 
     slashProjectials = []
 
