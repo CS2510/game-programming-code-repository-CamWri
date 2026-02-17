@@ -20,12 +20,13 @@ class CharacterComponent extends Component{
         }
     }
 
-    update(){        
+    update(){  
         if(this.hasPriority){
+            let ActionClass      
             for (const key in this.abilities) {
                 // @ts-ignore
                 if (Input.keysDown.includes(key) && !this.activeAbility) {
-                    let ActionClass = this.abilities[key]
+                    ActionClass = this.abilities[key]
 
                     let action = new ActionClass()
 
@@ -47,7 +48,7 @@ class CharacterComponent extends Component{
 
             if(Input.keysDown.includes("KeyE")){
                 if(this.activeAbility){
-                    this.activeAbility.endExecution()
+                    this.activeAbility.endExecution(ActionClass)
                 }
                 this.endTurn()
             }

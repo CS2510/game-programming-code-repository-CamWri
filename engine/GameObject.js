@@ -2,9 +2,11 @@ class GameObject{
     components = []
     hasStarted = false
     markForDestroy = false
+    name
 
-    constructor(){
+    constructor(name){
         this.addComponent(new Transform())
+        this.name = name
     }
 
     broadCastMessaege(message){
@@ -58,5 +60,9 @@ class GameObject{
 
     get transform(){
         return this.components[0]
+    }
+
+    static find(name){
+        return Engine.currentScene.gameObjects.find(go => go.name == name)
     }
 }

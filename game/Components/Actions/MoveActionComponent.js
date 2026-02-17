@@ -37,12 +37,6 @@ class MoveActionComponent extends ActionComponent{
         this.transform.position.x += totalMovementChange.x
         this.transform.position.y += totalMovementChange.y
 
-        //Command Objects can do, undo, and lifecycle 
-
-        /*
-        Once advanced inputs are done, then I can change this to if Space was pressed down this frame to
-        allow a movement toggle rather than having a whole seperate button needed
-        */
         if (this.movementLeft <= 0) {
             this.endExecution()
         }

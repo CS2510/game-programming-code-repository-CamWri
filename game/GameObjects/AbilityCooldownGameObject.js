@@ -1,6 +1,6 @@
 class AbilityCooldownGameObject extends GameObject{
     constructor(){
-        super()
+        super("Ability Cooldown Game Object")
         /*
         What I need to have
         - Custom Draw Function Component

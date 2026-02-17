@@ -20,8 +20,8 @@ class ActionComponent extends Component{
         
     }
 
-    endExecution(ActionComponent){
+    endExecution(ActionClass){
         this.gameObject.getComponent(CharacterComponent).activeAbility = null
-        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof ActionComponent))
+        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof ActionClass))
     }
 }

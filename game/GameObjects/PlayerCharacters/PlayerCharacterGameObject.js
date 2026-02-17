@@ -1,5 +1,5 @@
 class PlayerCharacterGameObject extends CharacterGameObject {
-    constructor(customStats = {}) {
-        super()
+    constructor(name = "Player Character Game Object") {
+        super(name)
     }
 }

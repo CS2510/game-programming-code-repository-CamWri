@@ -1,6 +1,6 @@
 class SlashProjectileGameObject extends GameObject {
     constructor(player, targetEnemy) {
-        super()
+        super("Slash Projectile Game Object")
 
         this.addComponent(new Polygon(), {
             points: [

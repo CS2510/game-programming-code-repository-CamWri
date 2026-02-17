@@ -1,5 +1,5 @@
 class CharacterGameObject extends GameObject{
-    constructor(){
-        super()
+    constructor(name = "Character Game Object"){
+        super(name)
     }
 }

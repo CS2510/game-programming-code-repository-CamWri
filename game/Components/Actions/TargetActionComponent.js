@@ -1,7 +1,13 @@
 class TargetActionComponent extends ActionComponent{
+     static maxTargets = 1
+ 
     targetSelectionIndex = 0
     targets = []
     currentSelectedTarget
+
+    firedProjectiles = false
+
+    actionProjectiles = []
 
     constructor(){
         super()
@@ -14,6 +20,34 @@ class TargetActionComponent extends ActionComponent{
         this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
         this.changeSelectedEnemy(0)
+    }
+
+    update(){
+        this.actionProjectiles = this.actionProjectiles.filter(proj => !proj.markForDestroy)
+
+        if(!this.firedProjectiles){
+            if (Input.keysDown.includes("ArrowRight")) this.changeSelectedEnemy(1)
+            if (Input.keysDown.includes("ArrowLeft")) this.changeSelectedEnemy(-1)
+
+            if(Input.keysDown.includes("Space")) {
+                if (this.currentTargets.includes(this.currentSelectedTarget)){
+                    this.deselectEnemy()
+                }
+
+                // @ts-ignore
+                if(!this.currentTargets.includes(this.currentSelectedTarget) && this.constructor.maxTargets > this.currentTargets.length){
+                    this.selectEnemy()
+                }
+            }
+        }
+
+        if (this.isExecutionComplete()){
+            this.endExecution(this.constructor)
+        }
+    } 
+
+    isExecutionComplete(){
+        return this.actionProjectiles.length == 0 && this.firedProjectiles
     }
 
     endExecution(ActionComponent){

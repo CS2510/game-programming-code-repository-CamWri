@@ -1,5 +1,9 @@
 Next Thing to Work On:
-    - Basic UI that shows current abilities, input to activate them, and the cooldown 
+    - Basic UI that shows current abilities, input to activate them, and the cooldown
+    - Change it so that the escape key is pressed, you exit out of your current action ability if you haven't used it yet (unsure with movement)
+    - Have it when backspace is pressed, you deselect the last selected enemy (have to adjust it so that you cannot "target" already
+        selected enemies)
+    - May need to have a global for "animations" like fireball to prevent you from ending your turn while they are going 
     
 Architecture Change:
 
