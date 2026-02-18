@@ -51,7 +51,7 @@ class TurnManagerComponent extends Component{
     }
 
     enemyTurn(){
-        if(Input.keysDown.includes("KeyR")){
+        if(Input.keysDownThisFrame.includes("KeyR")){
             this.nextTurn()
         }
     }

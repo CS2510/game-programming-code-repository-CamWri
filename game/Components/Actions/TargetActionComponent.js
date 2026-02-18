@@ -1,8 +1,9 @@
-class TargetActionComponent extends ActionComponent{
-     static maxTargets = 1
- 
+class TargetActionComponent extends ActionComponent{ 
     targetSelectionIndex = 0
+
     targets = []
+    currentTargets = []
+    
     currentSelectedTarget
 
     firedProjectiles = false
@@ -13,10 +14,7 @@ class TargetActionComponent extends ActionComponent{
         super()
     }
 
-    start(targets){
-        this.targets = targets
-        this.currentTargets = []
-
+    start(){
         this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
         this.changeSelectedEnemy(0)
@@ -26,18 +24,16 @@ class TargetActionComponent extends ActionComponent{
         this.actionProjectiles = this.actionProjectiles.filter(proj => !proj.markForDestroy)
 
         if(!this.firedProjectiles){
-            if (Input.keysDown.includes("ArrowRight")) this.changeSelectedEnemy(1)
-            if (Input.keysDown.includes("ArrowLeft")) this.changeSelectedEnemy(-1)
+            if (Input.keysDownThisFrame.includes("ArrowRight")) this.changeSelectedEnemy(1)
+            if (Input.keysDownThisFrame.includes("ArrowLeft")) this.changeSelectedEnemy(-1)
 
-            if(Input.keysDown.includes("Space")) {
-                if (this.currentTargets.includes(this.currentSelectedTarget)){
-                    this.deselectEnemy()
-                }
+            // @ts-ignore
+            if (Input.keysDownThisFrame.includes("Space") && this.constructor.maxTargets > this.currentTargets.length) {
+                this.selectEnemy();
+            }
 
-                // @ts-ignore
-                if(!this.currentTargets.includes(this.currentSelectedTarget) && this.constructor.maxTargets > this.currentTargets.length){
-                    this.selectEnemy()
-                }
+            if (Input.keysDownThisFrame.includes("Backspace")) {
+                this.deselectLastEnemy();
             }
         }
 
@@ -59,31 +55,43 @@ class TargetActionComponent extends ActionComponent{
         super.endExecution(ActionComponent)
     }
 
-    changeSelectedEnemy(direction) {
+    changeSelectedEnemy(direction, attempts = 0) {
+        if (this.targets.length === 0) return;
+
+        if (attempts >= this.targets.length) return;
+
         let polygon = this.currentSelectedTarget.getComponent(Polygon)
-        if (polygon && polygon.strokeStyle != "blue") polygon.strokeStyle = "red"
+        if (polygon && !this.currentTargets.includes(this.currentSelectedTarget)) polygon.strokeStyle = "red"
 
         this.targetSelectionIndex = (this.targetSelectionIndex + direction + this.targets.length) % this.targets.length
-
         this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
-        let newPolygon = this.currentSelectedTarget.getComponent(Polygon)
-        if (newPolygon && newPolygon.strokeStyle != "blue") newPolygon.strokeStyle = "yellow"
+        if (this.currentTargets.includes(this.currentSelectedTarget)) {
+            this.changeSelectedEnemy(direction, attempts + 1)
+        } else {
+            let newPolygon = this.currentSelectedTarget.getComponent(Polygon)
+            if (newPolygon) newPolygon.strokeStyle = "yellow"
+        }
     }
 
     selectEnemy(){
+        if (this.currentTargets.includes(this.currentSelectedTarget)) return; // prevent duplicates
+
         let polygon = this.currentSelectedTarget.getComponent(Polygon)
         if (polygon) polygon.strokeStyle = "blue"
 
         this.currentTargets.push(this.currentSelectedTarget)
+
+        this.changeSelectedEnemy(1)
     }
 
-    deselectEnemy(){
-        this.currentTargets = this.currentTargets.filter(
-            target => target !== this.currentSelectedTarget
-        )
 
-        let polygon = this.currentSelectedTarget.getComponent(Polygon)
-        if (polygon) polygon.strokeStyle = "yellow"
+    deselectLastEnemy(){
+        let lastSelected = this.currentTargets.pop();
+        if (lastSelected) {
+            let polygon = lastSelected.getComponent(Polygon);
+            if (polygon) polygon.strokeStyle = "red";
+            this.changeSelectedEnemy(0)
+        }
     }
 }

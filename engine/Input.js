@@ -1,17 +1,19 @@
 class Input{
     static keysDown = []
+    static keysDownThisFrame = []
 
-    static keyDown(event){
-        Input.keysDown.push(event.code)
+    static keyDown(event) {
+        if (!Input.keysDown.includes(event.code)) {
+            Input.keysDown.push(event.code)
+            Input.keysDownThisFrame.push(event.code)
+        }
     }
 
     static keyUp(event){
-        Input.keysDown = Input.keysDown.filter(
-            function(element){
-                if(element!=event.code) 
-                    return true
-                else
-                    return false
-            })
+        Input.keysDown = Input.keysDown.filter(k => k != event.code)
+    }
+
+    static update() {
+        Input.keysDownThisFrame = []
     }
 }

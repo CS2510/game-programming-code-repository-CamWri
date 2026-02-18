@@ -28,6 +28,7 @@ class Engine {
         }
         Engine.update()
         Engine.draw()
+        Input.update()
         requestAnimationFrame(Engine.gameLoop)
     }
 

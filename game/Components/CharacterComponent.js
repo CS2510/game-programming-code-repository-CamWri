@@ -25,7 +25,7 @@ class CharacterComponent extends Component{
         if(this.hasPriority){
             for (const key in this.abilities) {
                 // @ts-ignore
-                if (Input.keysDown.includes(key) && !this.activeAbility) {
+                if (Input.keysDownThisFrame.includes(key) && !this.activeAbility) {
                     this.ActionClass = this.abilities[key]
 
                     let action = new this.ActionClass()
@@ -47,7 +47,7 @@ class CharacterComponent extends Component{
             }
 
 
-            if(Input.keysDown.includes("KeyE") && this.canPassTurn){
+            if(Input.keysDownThisFrame.includes("KeyE") && this.canPassTurn){
                 if(this.activeAbility){
                     this.activeAbility.endExecution(this.ActionClass)
                 }
