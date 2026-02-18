@@ -4,11 +4,11 @@ class BattleScene extends Scene{
         let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 400))
 
 
-        let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 100))
-        let enemy2 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 250))
-        let enemy3 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 400))
-        let enemy4 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 550))
-        let enemy5 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1200, 700))
+        let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 100))
+        let enemy2 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 250))
+        let enemy3 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 400))
+        let enemy4 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 550))
+        let enemy5 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 700))
 
         let turnIndicatior = this.instantiate(new TurnIndicatorGameObject(), new Vector2(0, 0))
 

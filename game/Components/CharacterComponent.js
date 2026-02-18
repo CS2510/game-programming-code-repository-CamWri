@@ -9,6 +9,7 @@ class CharacterComponent extends Component{
     abilitiyCooldowns = new Map()
 
     activeAbility = null
+    canPassTurn = true
 
     constructor(){
         super()
@@ -22,33 +23,33 @@ class CharacterComponent extends Component{
 
     update(){  
         if(this.hasPriority){
-            let ActionClass      
             for (const key in this.abilities) {
                 // @ts-ignore
                 if (Input.keysDown.includes(key) && !this.activeAbility) {
-                    ActionClass = this.abilities[key]
+                    this.ActionClass = this.abilities[key]
 
-                    let action = new ActionClass()
+                    let action = new this.ActionClass()
 
-                    if(this.abilitiyCooldowns.get(ActionClass) == 0){
+                    if(this.abilitiyCooldowns.get(this.ActionClass) == 0){
                         // Pull only what the action wants
                         let neededStats = {}
-                        for (const stat of ActionClass.requiredStats) {
+                        for (const stat of this.ActionClass.requiredStats) {
                             neededStats[stat] = this.stats[stat]
                         }
 
                         this.activeAbility = action
-                        this.abilitiyCooldowns.set(ActionClass, ActionClass.maxCooldown)
+                        this.abilitiyCooldowns.set(this.ActionClass, this.ActionClass.maxCooldown)
 
                         this.gameObject.addComponent(action, {characterStats: neededStats, player: this.gameObject})
+                        this.canPassTurn = false
                     }
                 }
             }
 
 
-            if(Input.keysDown.includes("KeyE")){
+            if(Input.keysDown.includes("KeyE") && this.canPassTurn){
                 if(this.activeAbility){
-                    this.activeAbility.endExecution(ActionClass)
+                    this.activeAbility.endExecution(this.ActionClass)
                 }
                 this.endTurn()
             }

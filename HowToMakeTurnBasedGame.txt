@@ -1,20 +1,13 @@
 Next Thing to Work On:
-    - Basic UI that shows current abilities, input to activate them, and the cooldown
-    - Change it so that the escape key is pressed, you exit out of your current action ability if you haven't used it yet (unsure with movement)
-    - Have it when backspace is pressed, you deselect the last selected enemy (have to adjust it so that you cannot "target" already
-        selected enemies)
-    - May need to have a global for "animations" like fireball to prevent you from ending your turn while they are going 
-    
+    1. Refactoring of the target selection and action component controls
+        - When they hit the escape key, they stop/exit their action but don't use it if they haven't done anything yet
+        - When they hit the backspace/delete key, you deselect the last selected enemy
+            -  have to adjust it so that you cannot "target" already selected enemies
+
+    - Adding enable/disable (Would that just be a variable in the game object class where update, start and draw checks that variable if they can)
 Architecture Change:
 
 
 Lasts Weeks QA's: 
-When explaining this weeks content, can I just download your version from GitHub so students can recognize the base/starting point without the Turn Based Game File system and all that stuff
-Yes 
-
 UI Without game object hierarchies 
 Dictionary of all the positions possible for actions UI stuff, and just update in the TurnBasedManger the text, cooldown display etc. 
-Big picture, I want a scene to explore and then encounter enemies which take me to a new scene. How would I make it dynamic so I don't create a whole new scene for each encounter possible. How would I also balance it, would my player
-character have a flag that switches between in combat and out, or would it be a whole separate game object
-When you hit an enemy, it updates the  global variables to say what enemy and players are there and then the start function in a component will read global to then populate everything
-If we do enable/disable, I could just have a global flag that states if we are in free roam, enable these game objects, if turn based, enable the other game objects

@@ -1,4 +1,4 @@
-class FireBallCompletedComponent extends Component{
+class FireBallAOECompletedComponent extends Component{
     constructor(){
         super()
     }
