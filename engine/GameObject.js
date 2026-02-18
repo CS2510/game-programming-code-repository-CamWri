@@ -3,6 +3,7 @@ class GameObject{
     hasStarted = false
     markForDestroy = false
     name
+    physicsStatic = false
 
     constructor(name){
         this.addComponent(new Transform())

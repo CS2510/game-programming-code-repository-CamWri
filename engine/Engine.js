@@ -12,6 +12,8 @@ class Engine {
 
         addEventListener("keydown", Input.keyDown)
         addEventListener("keyup", Input.keyUp)
+        
+        addEventListener("mousemove", Input.mouseMove)
 
         Engine.currentScene.start()
         Engine.gameLoop()

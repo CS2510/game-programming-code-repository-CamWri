@@ -1,4 +1,6 @@
 class TargetActionComponent extends ActionComponent{ 
+    static maxTargets = 1
+    
     targetSelectionIndex = 0
 
     targets = []
