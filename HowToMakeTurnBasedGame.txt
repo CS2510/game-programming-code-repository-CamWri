@@ -1,9 +1,4 @@
 Next Thing to Work On:
-    1. Refactoring of the target selection and action component controls
-        - When they hit the escape key, they stop/exit their action but don't use it if they haven't done anything yet
-        - When they hit the backspace/delete key, you deselect the last selected enemy
-            -  have to adjust it so that you cannot "target" already selected enemies
-
     - Adding enable/disable (Would that just be a variable in the game object class where update, start and draw checks that variable if they can)
 Architecture Change:
 
