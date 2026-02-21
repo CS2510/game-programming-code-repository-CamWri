@@ -20,7 +20,7 @@ class FireballAOEGameObject extends GameObject{
             strokeStyle: "orange"
         })
 
-        this.addComponent(new ExpansionComponent(), {scaleRate: 1.012, duration: 1.5})
+        this.addComponent(new ExpansionComponent(), {scaleRate: 3, duration: 1.5})
         this.addComponent(new FireBallAOECompletedComponent())
     }
 }

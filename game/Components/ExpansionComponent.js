@@ -1,4 +1,4 @@
-class ExpansionComponent extends Component{
+class ExpansionComponent extends Component {
     scaleRate
     duration
 
@@ -10,10 +10,11 @@ class ExpansionComponent extends Component{
 
     update(){
         this.time += Time.deltaTime
+        const factor = Math.pow(this.scaleRate, Time.deltaTime);
 
         if(this.time < this.duration){
-            this.transform.scale.x *= this.scaleRate
-            this.transform.scale.y *= this.scaleRate
+            this.transform.scale.x *= factor;
+            this.transform.scale.y *= factor;
         } else {
             this.gameObject.destroy()
         }
