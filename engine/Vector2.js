@@ -40,6 +40,10 @@ class Vector2 {
         return new Vector2(this.x/magnitude, this.y/magnitude)
     }
 
+    elementWiseMultiplication(other){
+        return new Vector2(this.x * other.x, this.y * other.y)
+    }
+
     clone(){
         return new Vector2(this.x, this.y)
     }
