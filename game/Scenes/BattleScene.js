@@ -1,7 +1,8 @@
 class BattleScene extends Scene{
     constructor(){
         super()
-        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 400))
+        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 300))
+        let playerSquare2 = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 600))
 
 
         let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 100))
@@ -12,7 +13,7 @@ class BattleScene extends Scene{
 
         let turnIndicatior = this.instantiate(new TurnIndicatorGameObject(), new Vector2(0, 0))
 
-        this.instantiate(new TurnManagerGameObject([playerSquare], [enemy1, enemy2, enemy3, enemy4, enemy5], turnIndicatior), new Vector2(0, 0))
+        this.instantiate(new TurnManagerGameObject([playerSquare, playerSquare2], [enemy1, enemy2, enemy3, enemy4, enemy5], turnIndicatior), new Vector2(0, 0))
 
         //let tittleTextGameObject = this.instantiate(new GameObject(), new Vector2(675, 100))
         //tittleTextGameObject.addComponent(new TextLabel(), {text: "Hello World"})

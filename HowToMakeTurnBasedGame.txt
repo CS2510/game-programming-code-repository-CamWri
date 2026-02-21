@@ -1,8 +1,12 @@
 Next Thing to Work On:
     - Adding enable/disable (Would that just be a variable in the game object class where update, start and draw checks that variable if they can)
-Architecture Change:
 
+    - Start enemy behaviors
+        - Have a list of actions and choose a random valid action (related to cooldown)
+        - Each enemy ahs a function that gives a value for each valid action component and you take the highest one
+            - Could expand to a heat map where one axis is the target and the other axis is action that are usable
 
-Lasts Weeks QA's: 
-UI Without game object hierarchies 
-Dictionary of all the positions possible for actions UI stuff, and just update in the TurnBasedManger the text, cooldown display etc. 
+    - Character Stats and use stats for damage and health
+    - Implement a "Health Bar System"
+    - UI Implementation
+    - Action economy where you can only take x amount of actions a turn 

@@ -19,7 +19,7 @@ class Collisions{
             const one = vertices[i]
             const two = vertices[(i + 1) % vertices.length]
 
-            const direction = one.minus(two).normalized.orthogonal()
+            const direction = one.minus(two).normalized().orthogonal()
 
             const result = Collisions.isOverlapPointVerticesDirection(point, vertices, direction)
             if(!result) return false
