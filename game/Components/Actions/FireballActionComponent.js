@@ -2,6 +2,7 @@ class FireballActionComponent extends TargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 3
     static maxTargets = 1
+    static range = 250
     
     fireballAOEEnd = false
 

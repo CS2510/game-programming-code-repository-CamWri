@@ -2,7 +2,7 @@ class CharacterComponent extends Component{
     hasPriority = false
     
     // Stats keyword: value
-    stats = {"Speed": 100, "MaxMovement": 350}
+    stats = {"Speed": 100, "MaxMovement": 350, "MovementLeft": 350}
 
     abilities
 
@@ -10,6 +10,8 @@ class CharacterComponent extends Component{
 
     activeAbility = null
     canPassTurn = true
+
+    canceledThisFrame = false
 
     constructor(){
         super()
@@ -22,15 +24,25 @@ class CharacterComponent extends Component{
     }
 
     update(){  
+        this.canceledThisFrame = false
+
         if(this.hasPriority){
+            if (Input.keysDownThisFrame.includes(this.key) && this.activeAbility?.canCancel()) {
+                this.activeAbility.endExecution()
+                this.abilitiyCooldowns.set(this.ActionClass, 0)
+                this.canceledThisFrame = true
+            }
+            
             for (const key in this.abilities) {
                 // @ts-ignore
                 if (Input.keysDownThisFrame.includes(key) && !this.activeAbility) {
                     this.ActionClass = this.abilities[key]
 
-                    let action = new this.ActionClass()
+                    if(this.abilitiyCooldowns.get(this.ActionClass) == 0 && !this.canceledThisFrame){
+                        let action = new this.ActionClass()
 
-                    if(this.abilitiyCooldowns.get(this.ActionClass) == 0){
+                        this.key = key
+
                         // Pull only what the action wants
                         let neededStats = {}
                         for (const stat of this.ActionClass.requiredStats) {
@@ -42,14 +54,14 @@ class CharacterComponent extends Component{
 
                         this.gameObject.addComponent(action, {characterStats: neededStats, player: this.gameObject})
                         this.canPassTurn = false
+                        this.canceledThisFrame = false
                     }
                 }
             }
 
-
             if(Input.keysDownThisFrame.includes("KeyE") && this.canPassTurn){
                 if(this.activeAbility){
-                    this.activeAbility.endExecution(this.ActionClass)
+                    this.activeAbility.endExecution()
                 }
                 this.endTurn()
             }
@@ -61,8 +73,8 @@ class CharacterComponent extends Component{
             map.set(key, Math.max(0, value - 1));
         });
 
+        this.stats["MovementLeft"] = this.stats["MaxMovement"]
 
-        this.gameObject.components = this.gameObject.components.filter(b => !(b instanceof ActionComponent))
         Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
     }
 }

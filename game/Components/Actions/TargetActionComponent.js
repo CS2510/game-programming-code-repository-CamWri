@@ -1,6 +1,4 @@
 class TargetActionComponent extends ActionComponent{ 
-    static maxTargets = 1
-    
     targetSelectionIndex = 0
 
     targets = []
@@ -17,6 +15,9 @@ class TargetActionComponent extends ActionComponent{
     }
 
     start(){
+        // @ts-ignore
+        instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
+
         this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
 
         this.changeSelectedEnemy(0)
@@ -40,7 +41,7 @@ class TargetActionComponent extends ActionComponent{
         }
 
         if (this.isExecutionComplete()){
-            this.endExecution(this.constructor)
+            this.endExecution()
         }
     } 
 
@@ -48,13 +49,12 @@ class TargetActionComponent extends ActionComponent{
         return this.actionProjectiles.length == 0 && this.firedProjectiles
     }
 
-    endExecution(ActionComponent){
+    endExecution(){
         for (let target of this.targets){
-            //Need to have some way of getting the original stroke style before any adjustments
             target.getComponent(Polygon).strokeStyle = "red"
         }
 
-        super.endExecution(ActionComponent)
+        super.endExecution()
     }
 
     changeSelectedEnemy(direction, attempts = 0) {
@@ -95,5 +95,14 @@ class TargetActionComponent extends ActionComponent{
             if (polygon) polygon.strokeStyle = "red";
             this.changeSelectedEnemy(0)
         }
+    }
+
+    onDestroy(){
+        console.log("Target Action Component onDestroy Called")
+        GameObject.find("Spell Range Game Object").destroy()
+    }
+
+    canCancel(){
+        return !this.firedProjectiles
     }
 }

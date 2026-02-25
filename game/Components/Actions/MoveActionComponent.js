@@ -1,20 +1,23 @@
 class MoveActionComponent extends ActionComponent{
-    static requiredStats = ["Speed", "MaxMovement"]
+    static requiredStats = ["Speed", "MaxMovement", "MovementLeft"]
     static maxCooldown = 1
+
+    movementLeft
 
     constructor(){
         super()
     }
 
     start(){        
-        this.movementLeft = this.characterStats["MaxMovement"]
+        this.movementLeft = this.characterStats["MovementLeft"]
     }
 
     endExecution(){
-        super.endExecution(this.constructor)
+        super.endExecution()
     }
 
     update() {
+        console.log(this.movementLeft)
         let movementChange = new Vector2(0, 0)
 
         if(Input.keysDown.includes("ArrowRight")){
@@ -34,11 +37,17 @@ class MoveActionComponent extends ActionComponent{
 
         this.movementLeft -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
 
+        this.gameObject.getComponent(CharacterComponent).stats["MovementLeft"] = this.movementLeft
+
         this.transform.position.x += totalMovementChange.x
         this.transform.position.y += totalMovementChange.y
 
         if (this.movementLeft <= 0) {
             this.endExecution()
         }
+    }
+
+    canCancel(){
+        return true
     }
 }

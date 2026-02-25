@@ -1,19 +1,14 @@
 Next Thing to Work On:
-    - Adding enable/disable (Would that just be a variable in the game object class where update, start and draw checks that variable if they can)
-
-    - Start enemy behaviors
+    Major Leap 1: Enemy behaviors
         - Have a list of actions and choose a random valid action (related to cooldown)
         - Each enemy ahs a function that gives a value for each valid action component and you take the highest one
             - Could expand to a heat map where one axis is the target and the other axis is action that are usable
 
-    - Character Stats and use stats for damage and health
-        - Implement a "Health Bar System"
-    - UI Implementation
-    - Action economy where you can only take 1 action and have x amount of movement
-    - Implement it so you can cancel your actions and when you cancel movement, it retains how much movement you have left
+    Major Leap 2: UI 
+        Need Game Object Heirarchies
+        - Character Stats and use stats for damage and health
+            - Implement a "Health Bar System"
+        - UI Implementation
 
-    - Spell range
-        - Could have it so you cannot select an enemy outside of range
-            - Maybe have it so you cannot even target enemy outside of range
-            - If you can target, have it so a text appears above enemy head to show range/distance between enemies
-        - Could maybe add a spell circle around player when a spell is active that has range and scale it to see who can be hit
+(x) - Spell range
+    - When the spell circle is instantiated, on the enemy side, it will add itself to the enemies list inside of the TargetComponent

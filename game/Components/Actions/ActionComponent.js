@@ -20,9 +20,14 @@ class ActionComponent extends Component{
         
     }
 
-    endExecution(ActionClass){
+    endExecution(){
         this.gameObject.getComponent(CharacterComponent).activeAbility = null
         this.gameObject.getComponent(CharacterComponent).canPassTurn = true
-        this.gameObject.components = this.gameObject.components.filter(a => !(a instanceof ActionClass))
+        
+        this.destroy()
+    }
+
+    canCancel(){
+        return false
     }
 }
