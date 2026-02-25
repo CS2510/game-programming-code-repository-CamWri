@@ -1,7 +1,6 @@
-class FireballProjectileGameObject extends GameObject {
-    constructor(player, targetEnemy) {
-        super("Fireball Game Object")
-
+class FireballGameObject extends GameObject{
+    constructor(){
+        super()
         this.addComponent(new Polygon(), {
             points: [
                 new Vector2(25, 0),
@@ -20,8 +19,8 @@ class FireballProjectileGameObject extends GameObject {
             fillStyle: "red",
             strokeStyle: "orange"
         })
-        this.addComponent(new ProjectileComponent(), {sourceTransform: player.transform.position,  targetTransform: targetEnemy.transform.position, speed: 750})
-        this.addComponent(new FireballObjectComponent())
-        //Add a new fireball component that when it collides with the target enemy, it expands for acouple seconds 
+
+        this.addComponent(new ExpansionComponent(), {scaleRate: 4, duration: 1.5})
+        this.addComponent(new CompletedComponent())
     }
-} 
+}

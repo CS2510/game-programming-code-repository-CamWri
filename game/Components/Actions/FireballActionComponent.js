@@ -1,11 +1,9 @@
-class FireballActionComponent extends TargetActionComponent{
+class FireballActionComponent extends TargetAOEActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 3
     static maxTargets = 1
-    static range = 250
+    static range = 500
     
-    fireballAOEEnd = false
-
     constructor(){
         super()
     }
@@ -22,14 +20,10 @@ class FireballActionComponent extends TargetActionComponent{
             if(Input.keysDownThisFrame.includes("Enter")){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
-                    let slashProjectile = instantiate(new FireballProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
+                    let slashProjectile = instantiate(new FireballGameObject(), enemy.transform.position.clone())
                     this.actionProjectiles.push(slashProjectile)
                 }
             }
         }
-    }
-
-    isExecutionComplete(){
-        return this.fireballAOEEnd
     }
 }

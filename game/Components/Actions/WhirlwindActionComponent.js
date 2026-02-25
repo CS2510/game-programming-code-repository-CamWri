@@ -1,8 +1,8 @@
-class SlashActionComponent extends TargetActionComponent{
+class WhirlwindActionComponent extends TargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 1
-    static maxTargets = 2
-    static range = 750
+    static maxTargets = 1
+    static range = 50
 
     constructor(){
         super()
@@ -20,6 +20,7 @@ class SlashActionComponent extends TargetActionComponent{
             if(Input.keysDownThisFrame.includes("Enter")){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
+                    //Do a new game object that just has a particle system
                     let slashProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
                     this.actionProjectiles.push(slashProjectile)
                 }

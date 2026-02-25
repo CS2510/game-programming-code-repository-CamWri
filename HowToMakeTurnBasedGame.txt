@@ -1,14 +1,29 @@
 Next Thing to Work On:
-    Major Leap 1: Enemy behaviors
+    What I want to do this Week:
+        - Finish Spell Range: When the spell circle is instantiated, on the enemy side, it will add itself to the enemies list inside of the TargetComponent
+        - Find a way to generalize AOE projectile logic (Have Fireball and Whirlwind be under the same)
+        - Create a new child of Target Component called TargetProjectileActionComponent that deals with the actual projectiles throwing ones
+        - Start thinking about a way to do the Enemy Behaviors
+
+    What I want to ask Ricks this week:
+        - How would you structure/format Enemy behaviors list/logic/heat map
+        - I am trying to generalize AOE Projectile Actions but am unsure on how to, show him the idea of wanting to combine the logic/idea of Fireball and Whirlwind
+
+
+    Major Leap I: Enemy behaviors
         - Have a list of actions and choose a random valid action (related to cooldown)
         - Each enemy ahs a function that gives a value for each valid action component and you take the highest one
             - Could expand to a heat map where one axis is the target and the other axis is action that are usable
 
-    Major Leap 2: UI 
+    Major Leap II: UI 
         Need Game Object Heirarchies
         - Character Stats and use stats for damage and health
             - Implement a "Health Bar System"
         - UI Implementation
 
-(x) - Spell range
-    - When the spell circle is instantiated, on the enemy side, it will add itself to the enemies list inside of the TargetComponent
+
+    Under Target Action Component, I could have an AOE Action Component that given a position, automatically does the AOE of it
+        - Make a general AOE component
+
+    Video Tutorial
+        - When certain mouse events get called, What a Minimal Transform Vector is

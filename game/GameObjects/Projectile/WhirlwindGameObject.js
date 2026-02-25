@@ -1,4 +1,4 @@
-class FireballAOEGameObject extends GameObject{
+class WhirlwindGameObject extends GameObject{
     constructor(){
         super()
         this.addComponent(new Polygon(), {
@@ -16,11 +16,10 @@ class FireballAOEGameObject extends GameObject{
                 new Vector2(15, -20), 
                 new Vector2(20, -15), 
             ], 
-            fillStyle: "red",
-            strokeStyle: "orange"
+            fillStyle: "grey",
+            strokeStyle: "black"
         })
 
         this.addComponent(new ExpansionComponent(), {scaleRate: 4, duration: 1.5})
-        this.addComponent(new FireBallAOECompletedComponent())
     }
 }

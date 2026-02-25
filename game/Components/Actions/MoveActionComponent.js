@@ -17,7 +17,6 @@ class MoveActionComponent extends ActionComponent{
     }
 
     update() {
-        console.log(this.movementLeft)
         let movementChange = new Vector2(0, 0)
 
         if(Input.keysDown.includes("ArrowRight")){

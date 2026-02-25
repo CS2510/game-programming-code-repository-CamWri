@@ -13,6 +13,7 @@ class ExpansionComponent extends Component {
         const factor = Math.pow(this.scaleRate, Time.deltaTime);
 
         if(this.time < this.duration){
+            //scale equals some function based on time 
             this.transform.scale.x *= factor;
             this.transform.scale.y *= factor;
         } else {

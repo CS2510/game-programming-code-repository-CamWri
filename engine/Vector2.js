@@ -40,6 +40,10 @@ class Vector2 {
         return new Vector2(this.x/magnitude, this.y/magnitude)
     }
 
+    times(scalar){
+        return new Vector2(this.x * scalar, this.y * scalar)
+    }
+
     elementWiseMultiplication(other){
         return new Vector2(this.x * other.x, this.y * other.y)
     }
