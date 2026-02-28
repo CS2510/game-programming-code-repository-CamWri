@@ -20,6 +20,6 @@ class WhirlwindGameObject extends GameObject{
             strokeStyle: "black"
         })
 
-        this.addComponent(new ExpansionComponent(), {scaleRate: 4, duration: 1.5})
+        this.addComponent(new ExpansionComponent(), {scaleRate: 3.5, duration: 1.5})
     }
 }

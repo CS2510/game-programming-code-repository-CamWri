@@ -2,7 +2,7 @@ class CharacterComponent extends Component{
     hasPriority = false
     
     // Stats keyword: value
-    stats = {"Speed": 100, "MaxMovement": 350, "MovementLeft": 350}
+    stats = {"Speed": 100, "MaxMovement": 350, "RemainingMovement": 350, "MaxHealth": 16, "CurrentHealth": 16}
 
     abilities
 
@@ -26,7 +26,7 @@ class CharacterComponent extends Component{
             map.set(key, Math.max(0, value - 1));
         });
 
-        this.stats["MovementLeft"] = this.stats["MaxMovement"]
+        this.stats["RemainingMovement"] = this.stats["MaxMovement"]
 
         Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
     }

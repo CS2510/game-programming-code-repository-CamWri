@@ -1,4 +1,4 @@
-class TargetProjectileActionComponent extends TargetActionComponent{ 
+class AutoTargetActionComponent extends ActionComponent{ 
     targetSelectionIndex = 0
 
     targets = []

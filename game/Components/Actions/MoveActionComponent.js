@@ -1,15 +1,15 @@
 class MoveActionComponent extends ActionComponent{
-    static requiredStats = ["Speed", "MaxMovement", "MovementLeft"]
+    static requiredStats = ["Speed", "MaxMovement", "RemainingMovement"]
     static maxCooldown = 1
 
-    movementLeft
+    remainingMovement
 
     constructor(){
         super()
     }
 
     start(){        
-        this.movementLeft = this.characterStats["MovementLeft"]
+        this.remainingMovement = this.characterStats["RemainingMovement"]
     }
 
     endExecution(){
@@ -34,14 +34,14 @@ class MoveActionComponent extends ActionComponent{
 
         let totalMovementChange = new Vector2(movementChange.x * this.characterStats["Speed"] * Time.deltaTime, movementChange.y * this.characterStats["Speed"] * Time.deltaTime)
 
-        this.movementLeft -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
+        this.remainingMovement -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
 
-        this.gameObject.getComponent(CharacterComponent).stats["MovementLeft"] = this.movementLeft
+        this.gameObject.getComponent(CharacterComponent).stats["RemainingMovement"] = this.remainingMovement
 
         this.transform.position.x += totalMovementChange.x
         this.transform.position.y += totalMovementChange.y
 
-        if (this.movementLeft <= 0) {
+        if (this.remainingMovement <= 0) {
             this.endExecution()
         }
     }

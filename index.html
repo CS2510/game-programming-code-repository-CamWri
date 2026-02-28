@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Day 01</title>
+    <title>Turn Based Game</title>
     <style>
         /* Engine-Specific */
         * {
@@ -25,7 +25,9 @@
 
     <script src="./engine/components/Transform.js"></script>
     <script src="./engine/components/TextLabel.js"></script>
+    <script src="./engine/components/StartText.js"></script>
     <script src="./engine/components/Polygon.js"></script>
+    <script src="./engine/components/Collider.js"></script>
     
     <script src="./game/Scenes/BattleScene.js"></script>
 
@@ -44,6 +46,7 @@
 
     <script src="./game/GameObjects/Projectile/SlashProjectileGameObject.js"></script>
     <script src="./game/GameObjects/Projectile/FireballGameObject.js"></script>
+    <script src="./game/GameObjects/Projectile/WhirlwindGameObject.js"></script>
 
     <script src="./game/Components/TurnManagerComponent.js"></script>
     <script src="./game/Components/CharacterComponent.js"></script>
@@ -55,12 +58,13 @@
     <script src="./game/Components/EnemyComponent.js"></script>
 
     <script src="./game/Components/Actions/ActionComponent.js"></script>
-    <script src="./game/Components/Actions/TargetActionComponent.js"></script>
-    <script src="./game/Components/Actions/TargetAOEActionComponent.js"></script>
+    <script src="./game/Components/Actions/AutoTargetActionComponent.js"></script>
+    <script src="./game/Components/Actions/ClickTargetActionComponent.js"></script>
     <script src="./game/Components/Actions/MoveActionComponent.js"></script>
     <script src="./game/Components/Actions/SlashActionComponent.js"></script>
     <script src="./game/Components/Actions/FireballActionComponent.js"></script>
     <script src="./game/Components/Actions/PummelActionComponent.js"></script>
+    <script src="./game/Components/Actions/WhirlwindActionComponent.js"></script>
 
 
     <script>

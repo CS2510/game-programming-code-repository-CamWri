@@ -13,10 +13,12 @@ class BattleScene extends Scene{
 
         this.instantiate(new TurnManagerGameObject([playerSquare], [enemy1, enemy2, enemy3, enemy4, enemy5], turnIndicatior), new Vector2(0, 0))
 
-        //let tittleTextGameObject = this.instantiate(new GameObject(), new Vector2(675, 100))
-        //tittleTextGameObject.addComponent(new TextLabel(), {text: "Hello World"})
+        let enemyRangeText = this.instantiate(new GameObject("Range Text Game Object"), new Vector2(10, 25))
+        enemyRangeText.addComponent(new TextLabel())
+        enemyRangeText.addComponent(new StartText(), {label: "Range"})
 
-        //Eventually, create an action display game object that shows the input needed to activate it, the cooldown,
-            //and what the ability is
+        let enemyHealthText = this.instantiate(new GameObject("Health Text Game Object"),new Vector2(10, 50))
+        enemyHealthText.addComponent(new TextLabel())
+        enemyHealthText.addComponent(new StartText(), {label: "Enemy Health",})
     }
 }

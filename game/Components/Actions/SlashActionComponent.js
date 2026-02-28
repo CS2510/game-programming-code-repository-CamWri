@@ -1,4 +1,4 @@
-class SlashActionComponent extends TargetActionComponent{
+class SlashActionComponent extends AutoTargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 1
     static maxTargets = 2

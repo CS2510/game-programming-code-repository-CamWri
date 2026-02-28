@@ -1,8 +1,8 @@
-class PummelActionComponent extends TargetActionComponent{
+class PummelActionComponent extends AutoTargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 1
     static maxTargets = 1
-    static range = 50
+    static range = 100
 
     constructor(){
         super()

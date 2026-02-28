@@ -1,4 +1,4 @@
-class FireballActionComponent extends TargetAOEActionComponent{
+class FireballActionComponent extends ClickTargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 3
     static maxTargets = 1
@@ -16,13 +16,11 @@ class FireballActionComponent extends TargetAOEActionComponent{
     update() {
         super.update()
 
-        if(!this.firedProjectiles){
-            if(Input.keysDownThisFrame.includes("Enter")){
-                this.firedProjectiles = true
-                for(let enemy of this.currentTargets){
-                    let slashProjectile = instantiate(new FireballGameObject(), enemy.transform.position.clone())
-                    this.actionProjectiles.push(slashProjectile)
-                }
+        if(!this.spawnedAOE){
+            if(Input.mouseButtonsDownThisFrame.includes(0)){
+                this.spawnedAOE = true
+                let fireball = instantiate(new FireballGameObject(), Input.mousePosition.clone())
+                this.actionAOE = fireball
             }
         }
     }
