@@ -17,9 +17,5 @@ Next Thing to Work On:
             - Implement a "Health Bar System"
         - UI Implementation
 
-
-    Under Target Action Component, I could have an AOE Action Component that given a position, automatically does the AOE of it
-        - Make a general AOE component
-
     Video Tutorial
         - When certain mouse events get called, What a Minimal Transform Vector is
