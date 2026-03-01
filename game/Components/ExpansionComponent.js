@@ -1,6 +1,7 @@
 class ExpansionComponent extends Component {
-    scaleRate
-    duration
+    startScale = new Vector2(1, 1)
+    targetScale = new Vector2(2, 2)
+    duration = 1
 
     time = 0
     
@@ -10,13 +11,15 @@ class ExpansionComponent extends Component {
 
     update(){
         this.time += Time.deltaTime
-        const factor = Math.pow(this.scaleRate, Time.deltaTime);
 
-        if(this.time < this.duration){
-            //scale equals some function based on time 
-            this.transform.scale.x *= factor;
-            this.transform.scale.y *= factor;
-        } else {
+        let t = Math.min(this.time / this.duration, 1)
+
+        // linear interpolation for x and y scales
+        this.transform.scale.x = this.startScale.x + (this.targetScale.x - this.startScale.x) * t
+        this.transform.scale.y = this.startScale.y + (this.targetScale.y - this.startScale.y) * t
+
+        // destroy the object after the duration
+        if(this.time >= this.duration){
             this.gameObject.destroy()
         }
     }

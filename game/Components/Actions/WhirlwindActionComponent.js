@@ -2,7 +2,7 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
     static requiredStats = ["DamageMult"]
     static maxCooldown = 1
     static maxTargets = 1
-    static range = 25
+    static range = 0
 
     constructor(){
         super()
@@ -11,8 +11,7 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
     start(){
         this.targets = [this.gameObject]
 
-        // @ts-ignore
-        instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
+        super.start()
     }
 
     update() {

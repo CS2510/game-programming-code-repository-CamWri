@@ -30,4 +30,8 @@ class CharacterComponent extends Component{
 
         Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
     }
+
+    applyDamage(damageAmount){
+        this.stats["CurrentHealth"] = Math.min(0, this.stats["CurrentHealth"] - damageAmount)
+    }
 }

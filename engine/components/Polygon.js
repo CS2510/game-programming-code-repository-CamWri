@@ -26,4 +26,15 @@ class Polygon extends Component{
 
         ctx.restore()
     }
+
+    static generateCircle(segments){
+        let points = []
+
+        for (let i = 0; i < segments; i++) {
+            let angle = (i / segments) * Math.PI * 2
+            points.push(new Vector2(Math.cos(angle), Math.sin(angle)))
+        }
+
+        return points
+    }
 }
