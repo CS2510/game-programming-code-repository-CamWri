@@ -1,11 +1,11 @@
 class StartText extends Component {
     label
-    getValue
+    value
     textLabel
 
     start() {
         this.label = this.label || ""
-        this.getValue = this.getValue || ""
+        this.value = this.value || ""
         this.textLabel = this.gameObject.getComponent(TextLabel)
     }
 
@@ -13,11 +13,11 @@ class StartText extends Component {
         this.label = label
     }
 
-    setValue(getValue) {
-        this.getValue = getValue
+    setValue(value) {
+        this.value = value
     }
 
     update() {
-        this.textLabel.text = `${this.label}: ${this.getValue}`
+        this.textLabel.text = `${this.label}: ${this.value}`
     }
 }

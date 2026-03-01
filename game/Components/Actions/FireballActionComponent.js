@@ -9,7 +9,6 @@ class FireballActionComponent extends ClickTargetActionComponent{
     }
 
     start(){
-        this.targets = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
         super.start()
     }
 
