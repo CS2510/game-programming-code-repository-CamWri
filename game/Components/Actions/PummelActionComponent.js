@@ -17,7 +17,7 @@ class PummelActionComponent extends AutoTargetActionComponent{
         super.update()
 
         if(!this.firedProjectiles){
-            if(Input.keysDownThisFrame.includes("Enter")){
+            if(Input.keysDownThisFrame.includes("Enter") && this.currentTargets.length != 0){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
                     //Do a new game object that just has a particle system

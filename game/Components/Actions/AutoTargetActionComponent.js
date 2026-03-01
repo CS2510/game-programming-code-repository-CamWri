@@ -51,7 +51,12 @@ class AutoTargetActionComponent extends ActionComponent{
 
     endExecution(){
         for (let target of this.targets){
-            target.getComponent(Polygon).strokeStyle = "red"
+            if(target instanceof EnemyCharacterGameObject){
+                target.getComponent(Polygon).strokeStyle = "red"
+            } else {
+                target.getComponent(Polygon).strokeStyle = "green"
+            }
+
         }
 
         super.endExecution()
