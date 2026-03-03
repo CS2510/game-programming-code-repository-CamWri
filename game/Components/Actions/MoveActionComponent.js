@@ -12,29 +12,25 @@ class MoveActionComponent extends ActionComponent{
         this.remainingMovement = this.characterStats["RemainingMovement"]
     }
 
-    endExecution(){
-        super.endExecution()
-    }
-
     update() {
         let movementChange = new Vector2(0, 0)
 
         if(Input.keysDown.includes("ArrowRight")){
-            movementChange.x = 1
+            movementChange.x += 1
         }
         if(Input.keysDown.includes("ArrowLeft")){
-            movementChange.x = -1
+            movementChange.x += -1
         }
         if(Input.keysDown.includes("ArrowDown")){
-            movementChange.y = 1
+            movementChange.y += 1
         }
         if(Input.keysDown.includes("ArrowUp")){
-            movementChange.y = -1
+            movementChange.y += -1
         }
 
         let totalMovementChange = new Vector2(movementChange.x * this.characterStats["Speed"] * Time.deltaTime, movementChange.y * this.characterStats["Speed"] * Time.deltaTime)
 
-        this.remainingMovement -= Math.sqrt(totalMovementChange.x ** 2 + totalMovementChange.y ** 2)
+        this.remainingMovement -= totalMovementChange.magnitude
 
         this.gameObject.getComponent(CharacterComponent).stats["RemainingMovement"] = this.remainingMovement
 

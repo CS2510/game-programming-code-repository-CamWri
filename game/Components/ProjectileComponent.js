@@ -11,13 +11,11 @@ class ProjectileComponent extends Component{
 
     start(){
         // Direction = (target - source).normalized
-        const dx = this.targetTransform.x - this.sourceTransform.x
-        const dy = this.targetTransform.y - this.sourceTransform.y
+        const direction = this.targetTransform.minus(this.sourceTransform)
 
-        const length = Math.hypot(dx, dy)
         this.direction = {
-            x: dx / length,
-            y: dy / length
+            x: direction.x / direction.magnitude,
+            y: direction.y / direction.magnitude
         }
     }
 
@@ -25,7 +23,7 @@ class ProjectileComponent extends Component{
         this.transform.position.x += this.direction.x * this.speed * Time.deltaTime
         this.transform.position.y += this.direction.y * this.speed * Time.deltaTime
 
-        if(Math.hypot(this.transform.position.x - this.targetTransform.x, this.transform.position.y - this.targetTransform.y) < 5){
+        if(this.transform.position.minus(this.targetTransform).magnitude < 5){
             this.gameObject.destroy()
         }
     }

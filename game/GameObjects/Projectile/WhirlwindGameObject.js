@@ -1,6 +1,6 @@
 class WhirlwindGameObject extends GameObject{
     constructor(){
-        super()
+        super("Whirlwind Game Object")
         this.addComponent(new Polygon(), {
             points: Polygon.generateCircle(64), 
             fillStyle: "grey",

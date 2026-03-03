@@ -16,22 +16,23 @@ class CharacterComponent extends Component{
     }
 
     start(){
+        Events.registerListener("End Turn", this)
         for (const key in this.abilities) {
             this.abilitiyCooldowns.set(this.abilities[key], 0)
         }
     }
 
-    endTurn(){
+    applyDamage(damageAmount){
+        this.stats["CurrentHealth"] = Math.min(0, this.stats["CurrentHealth"] - damageAmount)
+    }
+
+    handleEvent(message, args){
         this.abilitiyCooldowns.forEach((value, key, map) => {
             map.set(key, Math.max(0, value - 1));
         });
 
+        this.hasPriority = false
+
         this.stats["RemainingMovement"] = this.stats["MaxMovement"]
-
-        Engine.currentScene.gameObjects.find(a => a instanceof TurnManagerGameObject).components.find(b => b instanceof TurnManagerComponent).endTurn()
-    }
-
-    applyDamage(damageAmount){
-        this.stats["CurrentHealth"] = Math.min(0, this.stats["CurrentHealth"] - damageAmount)
     }
 }

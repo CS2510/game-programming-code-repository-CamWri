@@ -20,7 +20,7 @@ class SlashActionComponent extends AutoTargetActionComponent{
             if(Input.keysDownThisFrame.includes("Enter") && this.currentTargets.length != 0){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
-                    let slashProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
+                    let slashProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), this.transform.position.clone())
                     this.actionProjectiles.push(slashProjectile)
                 }
             }

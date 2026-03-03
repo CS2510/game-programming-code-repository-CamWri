@@ -4,6 +4,6 @@ class CompletedComponent extends Component{
     }
 
     onDestroy(){
-        GameObject.find("Turn Manager Game Object").getComponent(TurnManagerComponent).currentCharacter.getComponent(ClickTargetActionComponent).AOEEnd = true
+        Events.handleEvent("AOE End", [])
     }
 }

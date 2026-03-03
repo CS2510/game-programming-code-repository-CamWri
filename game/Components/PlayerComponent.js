@@ -49,7 +49,7 @@ class PlayerComponent extends CharacterComponent{
                 if(this.activeAbility){
                     this.activeAbility.endExecution()
                 }
-                this.endTurn()
+                Events.handleEvent("End Turn", [])
             }
         }
     }

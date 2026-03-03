@@ -1,9 +1,5 @@
 Next Thing to Work On:
     What I want to do this Week: 
-
-    What I want to ask Ricks this week:
-
-    Next Week with collisions:
         - Finish Spell Range: When the spell circle is instantiated, on the enemy side, it will add itself to the enemies list inside of the TargetComponent
 
     Major Leap I: Enemy behaviors
@@ -16,6 +12,3 @@ Next Thing to Work On:
         - Character Stats and use stats for damage and health
             - Implement a "Health Bar System"
         - UI Implementation
-
-    Video Tutorial
-        - When certain mouse events get called, What a Minimal Transform Vector is

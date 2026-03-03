@@ -1,7 +1,7 @@
 class BattleScene extends Scene{
     constructor(){
         super()
-        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 300))
+        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 400))
 
         let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 100))
         let enemy2 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 250))
@@ -19,6 +19,6 @@ class BattleScene extends Scene{
 
         let enemyHealthText = this.instantiate(new GameObject("Health Text Game Object"),new Vector2(10, 50))
         enemyHealthText.addComponent(new TextLabel())
-        enemyHealthText.addComponent(new StartText(), {label: "Enemy Health",})
+        enemyHealthText.addComponent(new StartText(), {label: "Enemy Health"})
     }
 }

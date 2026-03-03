@@ -21,8 +21,8 @@ class PummelActionComponent extends AutoTargetActionComponent{
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
                     //Do a new game object that just has a particle system
-                    let slashProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
-                    this.actionProjectiles.push(slashProjectile)
+                    let pummelProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
+                    this.actionProjectiles.push(pummelProjectile)
                 }
             }
         }

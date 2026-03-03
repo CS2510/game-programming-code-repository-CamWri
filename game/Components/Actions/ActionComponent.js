@@ -12,14 +12,6 @@ class ActionComponent extends Component{
         
     }
 
-    startExecution(){
-        
-    }
-
-    pauseExecution(){
-        
-    }
-
     endExecution(){
         this.gameObject.getComponent(CharacterComponent).activeAbility = null
         this.gameObject.getComponent(CharacterComponent).canPassTurn = true

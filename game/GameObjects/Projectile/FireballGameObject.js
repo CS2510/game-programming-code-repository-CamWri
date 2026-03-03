@@ -1,6 +1,6 @@
 class FireballGameObject extends GameObject{
     constructor(){
-        super()
+        super("Fire Ball Game Object")
         this.addComponent(new Polygon(), {
             points: Polygon.generateCircle(64), 
             fillStyle: "red",

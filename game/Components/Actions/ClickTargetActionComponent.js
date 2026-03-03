@@ -10,6 +10,8 @@ class ClickTargetActionComponent extends ActionComponent{
     }
 
     start(){
+        Events.registerListener("AOE End", this)
+
         // @ts-ignore
         instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
     }
@@ -34,5 +36,9 @@ class ClickTargetActionComponent extends ActionComponent{
 
     canCancel(){
         return !this.spawnedAOE
+    }
+
+    handleEvent(message, args){
+        this.AOEEnd = true
     }
 }
