@@ -1,18 +1,23 @@
 class GameObject{
+    static nextID = 0
+
     components = []
     hasStarted = false
     markForDestroy = false
     name
     physicsStatic = false
+    id
 
     constructor(name){
         this.addComponent(new Transform())
         this.name = name
+        this.id = GameObject.nextID
+        GameObject.nextID++
     }
 
-    broadCastMessaege(message){
+    broadCastMessage(message, args){
         for(const compoenent of this.components){
-            compoenent[message]?.()
+            compoenent[message]?.(args)
         }
     }
 
@@ -29,7 +34,7 @@ class GameObject{
     }
 
     start() {
-        this.broadCastMessaege("start")
+        this.broadCastMessage("start")
     }
 
     update(){
@@ -38,7 +43,7 @@ class GameObject{
             this.start()
         }
 
-        this.broadCastMessaege("update")
+        this.broadCastMessage("update")
     }
 
     draw(ctx){

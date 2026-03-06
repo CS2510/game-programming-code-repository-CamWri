@@ -1,6 +1,8 @@
 class Collider extends Component{
     colliderPoints = []
     
+    isTrigger = false
+
     constructor(){
         super()
     }

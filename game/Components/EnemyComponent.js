@@ -36,4 +36,15 @@ class EnemyComponent extends CharacterComponent{
         GameObject.find("Range Text Game Object").getComponent(StartText).setValue("")
         GameObject.find("Health Text Game Object").getComponent(StartText).setValue("")
     }
+
+    onTriggerEnter(other){
+        if(other[0] instanceof SpellRangeGameObject){
+            console.log("Collision With Spell")
+            Events.handleEvent("Enemy Can Be Targeted", [this.gameObject])
+        }
+
+        let damageCompoennt = other[0].getComponent(DamagingComponent)
+        if(damageCompoennt)
+            this.gameObject.getComponent(CharacterComponent).applyDamage(damageCompoennt.getDamage())
+    }
 }

@@ -3,6 +3,7 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
     static maxCooldown = 1
     static maxTargets = 1
     static range = 0
+    static damage = 7
 
     constructor(){
         super()
@@ -10,7 +11,8 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
 
     start(){
         this.targets = [this.gameObject]
-
+        this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
+        this.changeSelectedEnemy(0)
         super.start()
     }
 

@@ -18,9 +18,7 @@ class AutoTargetActionComponent extends ActionComponent{
         // @ts-ignore
         instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
 
-        this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
-
-        this.changeSelectedEnemy(0)
+        Events.registerListener("Enemy Can Be Targeted", this)
     }
 
     update(){
@@ -108,5 +106,15 @@ class AutoTargetActionComponent extends ActionComponent{
 
     canCancel(){
         return !this.firedProjectiles
+    }
+
+    handleEvent(message, args){
+        if(args[0].getComponent(EnemyComponent)){
+            this.targets.push(args[0])
+            this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
+            if(this.targets.length == 1){
+                this.changeSelectedEnemy(0)
+            }
+        }
     }
 }

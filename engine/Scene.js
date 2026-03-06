@@ -2,6 +2,7 @@ class Scene{
     gameObjects = []
 
     lastFrameMouseCollisions = []
+    lastFrameCollisions = []
     previousMouseDowns = []
 
     instantiate(gameObject, position){
@@ -19,6 +20,10 @@ class Scene{
     }
 
     update(){
+        for(const gameObject of this.gameObjects){
+            gameObject.broadCastMessage("fixedUpdate", [])
+        }
+
         let thisFrameMouseCollisions = []
         let collidables = this.gameObjects.filter(go=>go.getComponent(Collider))
         if(Input.mousePosition){
@@ -27,24 +32,22 @@ class Scene{
                     thisFrameMouseCollisions.push(collidable)
             }
         }
-
         for(const collidable of thisFrameMouseCollisions){
             if(this.lastFrameMouseCollisions.includes(collidable))
-                collidable.broadCastMessaege("onMouseOver")
+                collidable.broadCastMessage("onMouseOver")
             else
-                collidable.broadCastMessaege("onMouseEnter")
+                collidable.broadCastMessage("onMouseEnter")
         }
-        
         for(const collidable of this.lastFrameMouseCollisions){
             if(!thisFrameMouseCollisions.includes(collidable)){
-                collidable.broadCastMessaege("onMouseExit")
+                collidable.broadCastMessage("onMouseExit")
                 this.previousMouseDowns = this.previousMouseDowns.filter(go=>go!=collidable)
             }
         }
 
         if(Input.mouseButtonsDownThisFrame.includes(0)){
             for(const collidable of thisFrameMouseCollisions){
-                collidable.broadCastMessaege("onMouseDown")
+                collidable.broadCastMessage("onMouseDown")
                 if(!this.previousMouseDowns.includes(collidable)){
                     this.previousMouseDowns.push(collidable)
                 }
@@ -53,9 +56,9 @@ class Scene{
 
         if(Input.mouseButtonsUpThisFrame.includes(0)){
             for(const collidable of thisFrameMouseCollisions){
-                collidable.broadCastMessaege("onMouseUp")
+                collidable.broadCastMessage("onMouseUp")
                 if(this.previousMouseDowns.includes(collidable)){
-                    collidable.broadCastMessaege("onMouseUpAsButton")
+                    collidable.broadCastMessage("onMouseUpAsButton")
                 }
             }
             this.previousMouseDowns = []
@@ -65,15 +68,74 @@ class Scene{
             // @ts-ignore
             const union = [...new Set([...thisFrameMouseCollisions, ...this.lastFrameMouseCollisions])]
             for(const collidable of union){
-                collidable.broadCastMessaege("onMouseDrag")
+                collidable.broadCastMessage("onMouseDrag")
                 if(this.lastFrameMouseCollisions.includes(collidable)
                      && !thisFrameMouseCollisions.includes(collidable)){
                     thisFrameMouseCollisions.push(collidable)
                 }
             }
         }
-        
+
+
+
         this.lastFrameMouseCollisions = thisFrameMouseCollisions
+        const activeCollisions = []
+
+        for(let i = 0; i < collidables.length; i++){
+            for(let j = i + 1; j < collidables.length; j++){
+                const one = collidables[i]
+                const two = collidables[j]
+                if(!one.getComponent(RigidBody) && !two.getComponent(RigidBody))
+                    continue
+                const result = Collisions.isCollisionGameObjectGameObject(one, two)
+                if(!result)
+                    continue
+                const collision = one.id < two.id ? {one: one, two: two, result: result} : {one:two, two: one, result: result.times(-1)}
+                activeCollisions.push(collision)
+            }
+        }
+
+        for(const collision of activeCollisions){
+            let type = "onTrigger"
+            if(!collision.one.getComponent(Collider)?.isTrigger && !collision.two.getComponent(Collider)?.isTrigger)
+                type = "onCollision"
+            if(this.lastFrameCollisions.some(pair=>pair.one == collision.one && pair.two == collision.two))
+            {
+                collision.one.broadCastMessage(type + "Stay", [collision.two])
+                collision.two.broadCastMessage(type + "Stay", [collision.one])
+            }
+            else{
+                collision.one.broadCastMessage(type + "Enter", [collision.two])
+                collision.two.broadCastMessage(type + "Enter", [collision.one])
+            }
+            if(type == "onCollision"){
+                if(collision.one.getComponent(RigidBody) && collision.two.getComponent(RigidBody)){
+                    collision.one.transform.position = collision.one.transform.position.add(collision.result.times(.5))
+                    collision.two.transform.position = collision.two.transform.position.add(collision.result.times(-.5))
+                }
+                else{
+                    if(collision.one.getComponent(RigidBody)){
+                        collision.one.transform.position = collision.one.transform.position.add(collision.result.times(1))
+                    }
+                    else{
+                         collision.two.transform.position = collision.two.transform.position.add(collision.result.times(-1))
+                    }
+                }
+            }
+        }
+
+        for(const collision of this.lastFrameCollisions){
+            let type = "onTrigger"
+            if(!collision.one.getComponent(Collider)?.isTrigger && !collision.two.getComponent(Collider)?.isTrigger)
+                type = "onCollision"
+            if(!activeCollisions.some(pair=>pair.one == collision.one && pair.two == collision.two))
+            {
+                collision.one.broadCastMessage(type + "Exit", [collision.two])
+                collision.two.broadCastMessage(type + "Exit", [collision.one])
+            }
+        }
+
+        this.lastFrameCollisions = activeCollisions
 
         for(const gameObject of this.gameObjects){
             if (!gameObject.hasStarted) {
@@ -90,7 +152,7 @@ class Scene{
             gameObject.components = gameObject.components.filter(comp => !comp.markForDestroy)
         }
 
-        this.gameObjects.filter(go => go.markForDestroy).forEach(go => go.broadCastMessaege("onDestroy"))
+        this.gameObjects.filter(go => go.markForDestroy).forEach(go => go.broadCastMessage("onDestroy"))
 
         this.gameObjects = this.gameObjects.filter(go => !go.markForDestroy)
     }

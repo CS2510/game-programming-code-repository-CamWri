@@ -3,13 +3,13 @@ class PummelActionComponent extends AutoTargetActionComponent{
     static maxCooldown = 1
     static maxTargets = 1
     static range = 100
+    static damage = 15
 
     constructor(){
         super()
     }
 
     start(){
-        this.targets = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
         super.start()
     }
 
@@ -20,8 +20,7 @@ class PummelActionComponent extends AutoTargetActionComponent{
             if(Input.keysDownThisFrame.includes("Enter") && this.currentTargets.length != 0){
                 this.firedProjectiles = true
                 for(let enemy of this.currentTargets){
-                    //Do a new game object that just has a particle system
-                    let pummelProjectile = instantiate(new SlashProjectileGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
+                    let pummelProjectile = instantiate(new PummelGameObject(this.gameObject, enemy), new Vector2(this.transform.position.x, this.transform.position.y))
                     this.actionProjectiles.push(pummelProjectile)
                 }
             }

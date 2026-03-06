@@ -3,13 +3,14 @@ class SlashActionComponent extends AutoTargetActionComponent{
     static maxCooldown = 1
     static maxTargets = 2
     static range = 750
+    static damage = 2
 
     constructor(){
         super()
     }
 
     start(){
-        this.targets = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
+        //this.targets = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
         super.start()
     }
 

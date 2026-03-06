@@ -9,5 +9,9 @@ class FireballGameObject extends GameObject{
 
         this.addComponent(new ExpansionComponent(), {targetScale: new Vector2(200, 200), duration: 1.5})
         this.addComponent(new CompletedComponent())
+
+        this.addComponent(new Collider(), {isTrigger: true})
+
+        this.addComponent(new DamagingComponent(), {reference: FireballActionComponent})
     }
 }

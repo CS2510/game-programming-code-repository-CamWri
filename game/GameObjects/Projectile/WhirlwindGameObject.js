@@ -8,5 +8,9 @@ class WhirlwindGameObject extends GameObject{
         })
 
         this.addComponent(new ExpansionComponent(), {targetScale: new Vector2(100, 100), duration: 1.5})
+
+        this.addComponent(new Collider(), {isTrigger: true})
+
+        this.addComponent(new DamagingComponent(), {reference: WhirlwindActionComponent})
     }
 }

@@ -1,7 +1,4 @@
 Next Thing to Work On:
-    What I want to do this Week: 
-        - Finish Spell Range: When the spell circle is instantiated, on the enemy side, it will add itself to the enemies list inside of the TargetComponent
-
     Major Leap I: Enemy behaviors
         - Have a list of actions and choose a random valid action (related to cooldown)
         - Each enemy ahs a function that gives a value for each valid action component and you take the highest one

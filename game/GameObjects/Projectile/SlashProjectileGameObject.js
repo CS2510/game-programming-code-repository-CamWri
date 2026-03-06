@@ -9,6 +9,11 @@ class SlashProjectileGameObject extends GameObject {
                 new Vector2(15, -15), 
             ]
         })
-        this.addComponent(new ProjectileComponent(), {sourceTransform: player.transform.position,  targetTransform: targetEnemy.transform.position, speed: 1000})
+
+        this.addComponent(new Collider(), {isTrigger: true})
+
+        this.addComponent(new DamagingComponent(), {reference: SlashActionComponent})
+
+        this.addComponent(new ProjectileComponent(), {source: player,  target: targetEnemy, speed: 1000})
     }
 }

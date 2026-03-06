@@ -12,6 +12,13 @@ class ActionComponent extends Component{
         
     }
 
+    getUpdatedStats(){
+        /*
+        return the Action Stats that are needed after being updated. 
+        Thing of it like if you have an item that increases range, you would return the static range + the items range extensions
+        */
+    }
+
     endExecution(){
         this.gameObject.getComponent(CharacterComponent).activeAbility = null
         this.gameObject.getComponent(CharacterComponent).canPassTurn = true

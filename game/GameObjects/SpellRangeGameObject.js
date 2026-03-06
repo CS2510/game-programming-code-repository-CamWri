@@ -8,7 +8,9 @@ class SpellRangeGameObject extends GameObject{
             strokeStyle: "black",
             lineWidth: 5
         })
+        this.addComponent(new Collider(), {isTrigger: true})
 
         this.addComponent(new SpellRangeIndicatorComponent(), {spellRange: new Vector2(range, range)})
+
     }
 }

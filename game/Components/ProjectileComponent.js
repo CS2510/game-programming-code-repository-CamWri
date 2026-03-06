@@ -1,7 +1,7 @@
 class ProjectileComponent extends Component{
     //I don't know if I want to have it be a trasnform or the actual game object
-    sourceTransform
-    targetTransform
+    source
+    target
     speed = 30
     direction
 
@@ -11,7 +11,7 @@ class ProjectileComponent extends Component{
 
     start(){
         // Direction = (target - source).normalized
-        const direction = this.targetTransform.minus(this.sourceTransform)
+        const direction = this.target.transform.position.minus(this.source.transform.position)
 
         this.direction = {
             x: direction.x / direction.magnitude,
@@ -22,8 +22,10 @@ class ProjectileComponent extends Component{
     update(){
         this.transform.position.x += this.direction.x * this.speed * Time.deltaTime
         this.transform.position.y += this.direction.y * this.speed * Time.deltaTime
+    }
 
-        if(this.transform.position.minus(this.targetTransform).magnitude < 5){
+    onTriggerEnter(other){
+        if(other[0] == this.target){
             this.gameObject.destroy()
         }
     }

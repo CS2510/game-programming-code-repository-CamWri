@@ -12,7 +12,7 @@ class MoveActionComponent extends ActionComponent{
         this.remainingMovement = this.characterStats["RemainingMovement"]
     }
 
-    update() {
+    fixedUpdate() {
         let movementChange = new Vector2(0, 0)
 
         if(Input.keysDown.includes("ArrowRight")){

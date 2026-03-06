@@ -2,7 +2,7 @@ class CharacterComponent extends Component{
     hasPriority = false
     
     // Stats keyword: value
-    stats = {"Speed": 100, "MaxMovement": 350, "RemainingMovement": 350, "MaxHealth": 16, "CurrentHealth": 16}
+    stats = {"Speed": 100, "MaxMovement": 800, "RemainingMovement": 800, "MaxHealth": 16, "CurrentHealth": 16}
 
     abilities
 
@@ -23,7 +23,7 @@ class CharacterComponent extends Component{
     }
 
     applyDamage(damageAmount){
-        this.stats["CurrentHealth"] = Math.min(0, this.stats["CurrentHealth"] - damageAmount)
+        this.stats["CurrentHealth"] = Math.max(0, this.stats["CurrentHealth"] - damageAmount)
     }
 
     handleEvent(message, args){
