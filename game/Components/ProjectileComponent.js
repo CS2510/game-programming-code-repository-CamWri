@@ -11,12 +11,7 @@ class ProjectileComponent extends Component{
 
     start(){
         // Direction = (target - source).normalized
-        const direction = this.target.transform.position.minus(this.source.transform.position)
-
-        this.direction = {
-            x: direction.x / direction.magnitude,
-            y: direction.y / direction.magnitude
-        }
+        this.direction = this.target.transform.position.minus(this.source.transform.position).normalized()
     }
 
     update(){
