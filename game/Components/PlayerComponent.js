@@ -6,6 +6,7 @@ class PlayerComponent extends CharacterComponent{
     }
 
     start(){
+        this.outlineColor = "green"
         super.start()
     }
 
@@ -49,8 +50,14 @@ class PlayerComponent extends CharacterComponent{
                 if(this.activeAbility){
                     this.activeAbility.endExecution()
                 }
-                Events.handleEvent("End Turn", [])
+                Events.handleEvent("End Turn", [this.gameObject])
             }
+        }
+    }
+
+    onTriggerEnter(other){
+        if(other[0] instanceof SpellRangeGameObject){
+            Events.handleEvent("Player Can Be Targeted", [this.gameObject])
         }
     }
 }

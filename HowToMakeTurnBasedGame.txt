@@ -1,11 +1,36 @@
 Next Thing to Work On:
-    Major Leap I: Enemy behaviors
-        - Have a list of actions and choose a random valid action (related to cooldown)
-        - Each enemy ahs a function that gives a value for each valid action component and you take the highest one
-            - Could expand to a heat map where one axis is the target and the other axis is action that are usable
+    Add a basic behavior tree that does the following
+        - If attack (descending order in priorty for attack selection) in rage to a player, do that, otherwise, move towards closest player.
+        - Later on, I can worry about threat evaluation, range vs. melee, attack/action selection through heat maps of behavior trees
 
-    Major Leap II: UI 
-        Need Game Object Heirarchies
-        - Character Stats and use stats for damage and health
-            - Implement a "Health Bar System"
-        - UI Implementation
+    Temporary Status Effects
+        - Buffs like increasing movement, or debuggs like slow or Damage over time
+        - What I should do is have a list of conditions and just apply them at the start of everyones turn, and then when I end the turn,
+            I reduce the duration by 1 and if the duration is 0, I remove it from the status effects list and therefore it won't be added 
+            on. This means I will also need a copy of the base stats that will be used to "reset" the stats to the original. Only
+            issue is defensive stats and stats used to calculate damage but they could just be applied for that instance maybe but now
+            thinking about it, it should just adjust the normal stats
+
+    Add modifiers for specific types of actions
+        - Have tags for each action and have modifiers to be applied to tags (like increase fire damage by 5% or something)
+        - Advance the damaging system to implement non-essential stats like Crit Rate, Crit Damage, Attack/Defense stat
+
+    Implement some attack ideas like
+        - Piercing attack that is soley based off of range (think like line attacks)
+            - Probably should be mouse input based where they go in the direction of the mouse for a distance, regardles of mouse position
+        - Area control actions that persist for a specific amount of turns
+            - Could be either
+
+    Clean Up How to Manage Stats
+
+    UI Changes
+        - Enhance the turn order UI to center it and normalize the way to display information
+            - Either have text below this regarding health and distance and turn order or have it so every single box has an 
+                name, HP, and distance/range from current player
+            - Make each box distinct so you can visually see see which one is which 
+        - Implement a Health Bar System to display the health of both enemies (possibly in turn order UI as a percentage or 
+            rectanlge at the bottom of the box) and the player which should be the bottom left hand side
+        - Bottom center should have all the abilities the current person can use, and when hovered, display stuff like
+            name of ability, indicator for cooldown, range, number of targets, type of ability, who it targets, and damage/healing/amount
+        - When applying something like damage, healing, or an effect, have a UI show the damage/healing/effect and make it fade away
+        - Have a movement left bar to show how far you can go with the current movement you have left at the bottom left as well

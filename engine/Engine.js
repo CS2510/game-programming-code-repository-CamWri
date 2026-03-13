@@ -10,6 +10,9 @@ class Engine {
         Engine.canvas = document.querySelector("#canv")
         Engine.ctx = Engine.canvas.getContext("2d")
 
+        Engine.canvas.width = window.innerWidth
+        Engine.canvas.height = window.innerHeight
+
         addEventListener("keydown", Input.keyDown)
         addEventListener("keyup", Input.keyUp)
 
@@ -43,10 +46,10 @@ class Engine {
         Engine.currentScene.update()
     }
 
-    static draw(){
+    static draw(){        
         Engine.canvas.width = window.innerWidth
         Engine.canvas.height = window.innerHeight
-        
+            
         Engine.currentScene.draw(Engine.ctx)
     }
 }

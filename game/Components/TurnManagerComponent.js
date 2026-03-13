@@ -5,11 +5,24 @@ class TurnManagerComponent extends Component{
         this.turnIndicatior = turnIndicatior
 
         this.currentIndex = 0
-        this.turnOrder = [...characterGameObjects, ...enemyGameObjects].sort((a, b) => b.speed - a.speed)
+        this.turnOrder = [...characterGameObjects, ...enemyGameObjects].sort((a, b) => b.getComponent(CharacterComponent).stats["Speed"] - a.getComponent(CharacterComponent).stats["Speed"])
         this.currentCharacter = this.turnOrder[0]
     }
 
     start(){
+        //Turn Order Logic at the top of the screen (Think like initiative order)
+        /*const spacing = 80
+        const y = 50
+
+        console.log(Engine.canvas.width)
+
+        for(let i = 0; i < this.turnOrder.length; i++){
+            const character = this.turnOrder[i]
+            const initalXPosition = 350 + i * spacing
+
+            instantiate(new TurnOrderIndexGameObject(character), new Vector2(initalXPosition, 50))
+        }*/
+
         Events.registerListener("End Turn", this)
     }
 

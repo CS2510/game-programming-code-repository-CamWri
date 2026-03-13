@@ -5,6 +5,18 @@ class Events{
         Events.listeners.push({message, listeningClass})
     }
 
+    static unregisterListener(message, listeningClass){
+        Events.listeners = Events.listeners.filter(
+            listener => !(listener.message === message && listener.listeningClass === listeningClass)
+        )
+    }
+
+    static unregisterAllListeners(listeningClass){
+        Events.listeners = Events.listeners.filter(
+            listener => listener.listeningClass !== listeningClass
+        )
+    }
+
     static handleEvent(message, args){
         for(const listener of Events.listeners){
             if(listener.message == message){

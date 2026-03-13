@@ -10,7 +10,7 @@ class SlashActionComponent extends AutoTargetActionComponent{
     }
 
     start(){
-        //this.targets = Engine.currentScene.gameObjects.filter(a => a instanceof EnemyCharacterGameObject)
+        this.canSelectEnemyCharacters = true
         super.start()
     }
 

@@ -14,6 +14,7 @@ class EnemyComponent extends CharacterComponent{
     }
 
     start(){
+        this.outlineColor = "red"
         super.start()
     }
 
@@ -25,21 +26,8 @@ class EnemyComponent extends CharacterComponent{
 
     }
 
-    onMouseOver(){
-        let playerCharacter = GameObject.find("Turn Manager Game Object").getComponent(TurnManagerComponent).currentCharacter
-
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue(`${playerCharacter.transform.position.minus(this.transform.position).magnitude.toFixed(2)}`)
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue(`${this.stats["CurrentHealth"]}/${this.stats["MaxHealth"]}`)
-    }
-
-    onMouseExit(){
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue("")
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue("")
-    }
-
     onTriggerEnter(other){
         if(other[0] instanceof SpellRangeGameObject){
-            console.log("Collision With Spell")
             Events.handleEvent("Enemy Can Be Targeted", [this.gameObject])
         }
 

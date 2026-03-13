@@ -10,6 +10,7 @@ class PummelActionComponent extends AutoTargetActionComponent{
     }
 
     start(){
+        this.canSelectEnemyCharacters = true
         super.start()
     }
 

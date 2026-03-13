@@ -10,9 +10,7 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
     }
 
     start(){
-        this.targets = [this.gameObject]
-        this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
-        this.changeSelectedEnemy(0)
+        this.onlySelectSelf = true
         super.start()
     }
 
@@ -21,7 +19,7 @@ class WhirlwindActionComponent extends AutoTargetActionComponent{
 
         if(!this.firedProjectiles && Input.keysDownThisFrame.includes("Enter")){
             this.firedProjectiles = true
-            let whirlwindProjectile = instantiate(new WhirlwindGameObject(), new Vector2(this.transform.position.x, this.transform.position.y))
+            let whirlwindProjectile = instantiate(new WhirlwindGameObject(), new Vector2(this.transform.position.x, this.transform.position.y).clone())
             this.actionProjectiles.push(whirlwindProjectile)
         }
     }
