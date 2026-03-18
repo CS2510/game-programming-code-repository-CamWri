@@ -1,6 +1,6 @@
 class TurnManagerGameObject extends GameObject{
-    constructor(characterGameObjects, enemyGameObjects ,turnIndicatior){
+    constructor(characterGameObjects, enemyGameObjects ,turnIndicatiorUI, turnIndicatiorCharacter){
         super("Turn Manager Game Object")
-        this.addComponent(new TurnManagerComponent(characterGameObjects, enemyGameObjects, turnIndicatior))
+        this.addComponent(new TurnManagerComponent(characterGameObjects, enemyGameObjects, turnIndicatiorUI, turnIndicatiorCharacter))
     }
 }

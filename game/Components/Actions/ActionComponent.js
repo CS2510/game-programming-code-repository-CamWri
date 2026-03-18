@@ -29,4 +29,14 @@ class ActionComponent extends Component{
     canCancel(){
         return false
     }
+
+    static setStrokeStyle(character, isCurrentTurn, isSelected, isTargetable) {
+        let color = "#000000"
+        
+        if (isCurrentTurn) color = "purple"
+        if (isSelected) color = "blue"
+        if (isTargetable) color = "yellow"
+
+        character.getComponent(Polygon).strokeStyle = color
+    }
 }

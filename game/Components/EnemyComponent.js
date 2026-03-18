@@ -14,7 +14,6 @@ class EnemyComponent extends CharacterComponent{
     }
 
     start(){
-        this.outlineColor = "red"
         super.start()
     }
 

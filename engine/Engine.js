@@ -39,6 +39,7 @@ class Engine {
         Engine.update()
         Engine.draw()
         Input.update()
+        Time.update()
         requestAnimationFrame(Engine.gameLoop)
     }
 

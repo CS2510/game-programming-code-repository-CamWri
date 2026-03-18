@@ -6,7 +6,6 @@ class PlayerComponent extends CharacterComponent{
     }
 
     start(){
-        this.outlineColor = "green"
         super.start()
     }
 

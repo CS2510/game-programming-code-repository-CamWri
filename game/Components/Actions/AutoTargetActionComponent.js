@@ -37,8 +37,6 @@ class AutoTargetActionComponent extends ActionComponent{
             if (Input.keysDownThisFrame.includes("ArrowRight")) this.changeSelectedCharacter(1)
             if (Input.keysDownThisFrame.includes("ArrowLeft")) this.changeSelectedCharacter(-1)
 
-            console.log(this.currentTargets.length)
-
             // @ts-ignore
             if (Input.keysDownThisFrame.includes("Space") && this.constructor.maxTargets > this.currentTargets.length) {
                 this.selectCharacter();
@@ -62,7 +60,7 @@ class AutoTargetActionComponent extends ActionComponent{
         Events.unregisterAllListeners(this)
 
         for (let target of this.targets){
-            this.updateOutlineColor(target)
+            ActionComponent.setStrokeStyle(target, false, false, false)
         }
 
         this.targets = []
@@ -76,7 +74,7 @@ class AutoTargetActionComponent extends ActionComponent{
         if (attempts >= this.targets.length) return;
 
         let polygon = this.currentSelectedTarget.getComponent(Polygon)
-        if (polygon && !this.currentTargets.includes(this.currentSelectedTarget)) this.updateOutlineColor(this.currentSelectedTarget)
+        if (polygon && !this.currentTargets.includes(this.currentSelectedTarget)) ActionComponent.setStrokeStyle(this.currentSelectedTarget, false, false, false)
 
         this.targetSelectionIndex = (this.targetSelectionIndex + direction + this.targets.length) % this.targets.length
         this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
@@ -84,16 +82,14 @@ class AutoTargetActionComponent extends ActionComponent{
         if (this.currentTargets.includes(this.currentSelectedTarget)) {
             this.changeSelectedCharacter(direction, attempts + 1)
         } else {
-            let newPolygon = this.currentSelectedTarget.getComponent(Polygon)
-            if (newPolygon) newPolygon.strokeStyle = "yellow"
+            ActionComponent.setStrokeStyle(this.currentSelectedTarget, false, false, true)
         }
     }
 
     selectCharacter(){
         if (this.currentTargets.includes(this.currentSelectedTarget) || !this.currentSelectedTarget ) return; // prevent duplicates
 
-        let polygon = this.currentSelectedTarget.getComponent(Polygon)
-        if (polygon) polygon.strokeStyle = "blue"
+        ActionComponent.setStrokeStyle(this.currentSelectedTarget, false, true, false)
 
         this.currentTargets.push(this.currentSelectedTarget)
 
@@ -104,8 +100,7 @@ class AutoTargetActionComponent extends ActionComponent{
     deselectLastCharacter(){
         let lastSelected = this.currentTargets.pop();
         if (lastSelected) {
-            let polygon = lastSelected.getComponent(Polygon);
-            if (polygon) this.updateOutlineColor(lastSelected)
+            ActionComponent.setStrokeStyle(lastSelected, false, false, false)
             this.changeSelectedCharacter(0)
         }
     }
@@ -116,15 +111,6 @@ class AutoTargetActionComponent extends ActionComponent{
 
     canCancel(){
         return !this.firedProjectiles
-    }
-
-    //May Want to change this to a static variable
-    updateOutlineColor(entity){
-        if(entity instanceof EnemyCharacterGameObject){
-            entity.getComponent(Polygon).strokeStyle = "red"
-        } else {
-            entity.getComponent(Polygon).strokeStyle = "green"
-        }
     }
 
     handleEvent(message, args){
