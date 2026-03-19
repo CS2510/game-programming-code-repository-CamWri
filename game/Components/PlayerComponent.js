@@ -13,6 +13,10 @@ class PlayerComponent extends CharacterComponent{
         this.canceledThisFrame = false
 
         if(this.hasPriority){
+            if(this.canStartTurn){
+                this.startTurn()
+            }
+        
             if (Input.keysDownThisFrame.includes(this.key) && this.activeAbility?.canCancel()) {
                 this.activeAbility.endExecution()
                 this.abilitiyCooldowns.set(this.ActionClass, 0)
@@ -32,7 +36,7 @@ class PlayerComponent extends CharacterComponent{
                         // Pull only what the action wants
                         let neededStats = {}
                         for (const stat of this.ActionClass.requiredStats) {
-                            neededStats[stat] = this.stats[stat]
+                            neededStats[stat] = this.getStat(stat)
                         }
 
                         this.activeAbility = action
@@ -49,7 +53,10 @@ class PlayerComponent extends CharacterComponent{
                 if(this.activeAbility){
                     this.activeAbility.endExecution()
                 }
+
                 Events.handleEvent("End Turn", [this.gameObject])
+
+                this.endTurn()
             }
         }
     }

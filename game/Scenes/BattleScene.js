@@ -2,8 +2,8 @@ class BattleScene extends Scene{
     constructor(){
         super()
         //Players
-        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 350))
-        let playerSquare2= this.instantiate(new PlayerCharacterSquareGameObject(), new Vector2(400, 550))
+        let playerSquare = this.instantiate(new PlayerCharacterSquareGameObject([new SpeedDebuff(2, 0.5)]), new Vector2(400, 350))
+        let playerSquare2 = this.instantiate(new PlayerCharacterSquareGameObject([]), new Vector2(400, 550))
 
         //Enemies
         let enemy1 = this.instantiate(new BasicEnemyGameObject(), new Vector2(1000, 300))

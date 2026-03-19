@@ -115,7 +115,6 @@ class AutoTargetActionComponent extends ActionComponent{
 
     handleEvent(message, args){
         if(args[0].getComponent(EnemyComponent) && message == "Enemy Can Be Targeted"){
-            console.log("Enemy")
             this.targets.push(args[0])
             this.currentSelectedTarget = this.targets[this.targetSelectionIndex]
             if(this.targets.length == 1){
@@ -124,7 +123,6 @@ class AutoTargetActionComponent extends ActionComponent{
         }
 
         if(args[0].getComponent(PlayerComponent) && message == "Player Can Be Targeted"){
-            console.log("Player")
             this.targets.push(args[0])
             if(this.targets.length == 1){
                 this.currentSelectedTarget = this.targets[this.targetSelectionIndex]

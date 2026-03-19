@@ -32,7 +32,7 @@ class MoveActionComponent extends ActionComponent{
 
         this.remainingMovement -= totalMovementChange.magnitude
 
-        this.gameObject.getComponent(CharacterComponent).stats["RemainingMovement"] = this.remainingMovement
+        this.gameObject.getComponent(CharacterComponent).updateDerivedStat("RemainingMovement", this.remainingMovement)
 
         this.transform.position.x += totalMovementChange.x
         this.transform.position.y += totalMovementChange.y
