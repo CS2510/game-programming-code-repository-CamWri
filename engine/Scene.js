@@ -26,6 +26,8 @@ class Scene{
 
         let thisFrameMouseCollisions = []
         let collidables = this.gameObjects.filter(go=>go.getComponent(Collider))
+        let rigidBodies = this.gameObjects.filter(go => go.getComponent(RigidBody))
+
         if(Input.mousePosition){
             for(const collidable of collidables){
                 if(Collisions.isCollisionPointGameObject(Input.mousePosition, collidable))
@@ -80,6 +82,7 @@ class Scene{
 
         this.lastFrameMouseCollisions = thisFrameMouseCollisions
         const activeCollisions = []
+        const rigidbodyCollisions = []
 
         for(let i = 0; i < collidables.length; i++){
             for(let j = i + 1; j < collidables.length; j++){
@@ -101,26 +104,15 @@ class Scene{
                 type = "onCollision"
             if(this.lastFrameCollisions.some(pair=>pair.one == collision.one && pair.two == collision.two))
             {
-                collision.one.broadCastMessage(type + "Stay", [collision.two])
-                collision.two.broadCastMessage(type + "Stay", [collision.one])
+                collision.one.broadCastMessage(type + "Stay", [collision.two, collision.result])
+                collision.two.broadCastMessage(type + "Stay", [collision.one, collision.result.times(-1)])
             }
             else{
-                collision.one.broadCastMessage(type + "Enter", [collision.two])
-                collision.two.broadCastMessage(type + "Enter", [collision.one])
+                collision.one.broadCastMessage(type + "Enter", [collision.two, collision.result])
+                collision.two.broadCastMessage(type + "Enter", [collision.one, collision.result.times(-1)])
             }
             if(type == "onCollision"){
-                if(collision.one.getComponent(RigidBody) && collision.two.getComponent(RigidBody)){
-                    collision.one.transform.position = collision.one.transform.position.add(collision.result.times(.5))
-                    collision.two.transform.position = collision.two.transform.position.add(collision.result.times(-.5))
-                }
-                else{
-                    if(collision.one.getComponent(RigidBody)){
-                        collision.one.transform.position = collision.one.transform.position.add(collision.result.times(1))
-                    }
-                    else{
-                         collision.two.transform.position = collision.two.transform.position.add(collision.result.times(-1))
-                    }
-                }
+                rigidbodyCollisions.push(collision)
             }
         }
 
@@ -130,8 +122,23 @@ class Scene{
                 type = "onCollision"
             if(!activeCollisions.some(pair=>pair.one == collision.one && pair.two == collision.two))
             {
-                collision.one.broadCastMessage(type + "Exit", [collision.two])
-                collision.two.broadCastMessage(type + "Exit", [collision.one])
+                collision.one.broadCastMessage(type + "Exit", [collision.two, collision.result])
+                collision.two.broadCastMessage(type + "Exit", [collision.one, collision.result.times(-1)])
+            }
+        }
+
+        for(const rigidBody of rigidBodies){
+            const rbCollisions = rigidbodyCollisions.filter(col => col.one == rigidBody || col.two == rigidBody)
+            rbCollisions.sort((a, b) => b.result.magnitude - a.result.magnitude)
+            for(const collision of rbCollisions){
+                const result = Collisions.isCollisionGameObjectGameObject(collision.one, collision.two)
+                if(!result) break
+                if(collision.one.getComponent(RigidBody)){
+                    collision.one.transform.position = collision.one.transform.position.add(collision.result.times(1))
+                }
+                else{
+                     collision.two.transform.position = collision.two.transform.position.add(collision.result.times(-1))
+                }
             }
         }
 

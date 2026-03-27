@@ -6,7 +6,6 @@ class SpeedDebuff extends StatusEffect {
 
     modifyStat(statName, value) {
         if(statName === "Speed") {
-            console.log("Speed Debuff")
             return value * (1 - this.percent)
         }
         return value

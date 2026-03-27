@@ -13,10 +13,14 @@ class Vector2 {
     static top = new Vector2(0, -1)
     static bottom = new Vector2(0, 1)
 
-    static zero = new Vector2(0, 0)
 
     add(other){
         return new Vector2(this.x + other.x, this.y + other.y)
+    }
+
+    plusEquals(other){
+        this.x += other.x
+        this.y += other.y
     }
 
     minus(other){

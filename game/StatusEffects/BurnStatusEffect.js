@@ -4,7 +4,7 @@ class BurnEffect extends StatusEffect {
         this.damage = damage
     }
 
-    onTurnStart(character) {
+    onTurnEnd(character) {
         character.applyDamage(this.damage)
     }
 }

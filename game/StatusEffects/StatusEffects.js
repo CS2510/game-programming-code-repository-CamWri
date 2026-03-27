@@ -5,6 +5,7 @@ class StatusEffect {
     }
 
     onTurnStart(character) {}
+
     onTurnEnd(character) {}
 
     modifyStat(statName, value) {

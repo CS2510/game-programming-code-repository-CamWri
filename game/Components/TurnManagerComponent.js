@@ -58,8 +58,6 @@ class TurnManagerComponent extends Component{
             }
         }
 
-        console.log(this.initiativeList)
-
         // Sort by initiative descending
         this.initiativeList.sort((a, b) => b.initiative - a.initiative)
 

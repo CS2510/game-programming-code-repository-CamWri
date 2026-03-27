@@ -25,12 +25,12 @@ class EnemyComponent extends CharacterComponent{
 
     }
 
-    onTriggerEnter(other){
-        if(other[0] instanceof SpellRangeGameObject){
+    onTriggerEnter(other, mtv){
+        if(other instanceof SpellRangeGameObject){
             Events.handleEvent("Enemy Can Be Targeted", [this.gameObject])
         }
 
-        let damageCompoennt = other[0].getComponent(DamagingComponent)
+        let damageCompoennt = other.getComponent(DamagingComponent)
         if(damageCompoennt)
             this.gameObject.getComponent(CharacterComponent).applyDamage(damageCompoennt.getDamage())
     }

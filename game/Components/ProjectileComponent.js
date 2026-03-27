@@ -19,8 +19,8 @@ class ProjectileComponent extends Component{
         this.transform.position.y += this.direction.y * this.speed * Time.deltaTime
     }
 
-    onTriggerEnter(other){
-        if(other[0] == this.target){
+    onTriggerEnter(other, mtv){
+        if(other == this.target){
             this.gameObject.destroy()
         }
     }

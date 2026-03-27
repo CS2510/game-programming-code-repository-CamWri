@@ -55,7 +55,7 @@ class UniformColorDistribution{
 }
 
 class Particle{
-    position = Vector2.zero
+    position = new Vector2(0, 0)
     velocity = 1
     direction = Math.random() * Math.PI * 2
     lifetime = 1

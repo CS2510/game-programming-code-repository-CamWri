@@ -15,12 +15,6 @@ class GameObject{
         GameObject.nextID++
     }
 
-    broadCastMessage(message, args){
-        for(const compoenent of this.components){
-            compoenent[message]?.(args)
-        }
-    }
-
     addComponent(component, options){
         Object.assign(component, options)
         this.components.push(component)
@@ -31,6 +25,12 @@ class GameObject{
         }
 
         return component
+    }
+
+    broadCastMessage(message, args = []){
+        for(const compoenent of this.components){
+            compoenent[message]?.(...args)
+        }
     }
 
     start() {

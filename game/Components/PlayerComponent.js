@@ -13,7 +13,10 @@ class PlayerComponent extends CharacterComponent{
         this.canceledThisFrame = false
 
         if(this.hasPriority){
+            //console.log("Priority:", this.statusEffects)
+
             if(this.canStartTurn){
+                console.log("Start Turn")
                 this.startTurn()
             }
         
@@ -61,8 +64,8 @@ class PlayerComponent extends CharacterComponent{
         }
     }
 
-    onTriggerEnter(other){
-        if(other[0] instanceof SpellRangeGameObject){
+    onTriggerEnter(other, mtv){
+        if(other instanceof SpellRangeGameObject){
             Events.handleEvent("Player Can Be Targeted", [this.gameObject])
         }
     }
