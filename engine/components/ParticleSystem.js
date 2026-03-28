@@ -22,34 +22,31 @@ class UniformDistribution{
 class ConstantColorDistribution{
     constructor(r, g, b){
         this.r = r
-        this.g = g 
+        this.g = g
         this.b = b
     }
 
-    sample(){
-        return {r: this.r, g: this.g, b: this.b}
+    sample() {
+        return { r: this.r, g: this.g, b: this.b }
     }
 }
 
-class UniformColorDistribution{
-    r
-    g
-    b
-    r2
-    g2
-    b2
-
-    constructor(r, g, b, r2, g2, b2){
-        Object.assign(this, {r, g, b, r2, g2, b2})
+class UniformColorDistribution {
+    constructor(r, g, b, r2, g2, b2) {
+        this.r = r
+        this.g = g
+        this.b = b
+        this.r2 = r2
+        this.g2 = g2
+        this.b2 = b2
     }
 
-    sample(){
+    sample() {
         const rand = Math.random()
         return {
-            r: (1-rand) * this.r + rand * this.r2, 
-            g: (1-rand) * this.g + rand * this.g2, 
-            b: (1-rand) * this.b + rand * this.b2, 
-
+            r: (1 - rand) * this.r + rand * this.r2,
+            g: (1 - rand) * this.g + rand * this.g2,
+            b: (1 - rand) * this.b + rand * this.b2,
         }
     }
 }
@@ -62,14 +59,14 @@ class Particle{
     size = 1
     startAlpha = 1
     endAlpha = 0
-    color = {r: 255, g: 255, b: 255}
+    color = { r: 255, g: 255, b: 255 }
     gravity = 0
+    isDead = false
 
     constructor(params){
         Object.assign(this, params)
         this.startTime = Time.time
 
-        // Convert direction + speed into velocity components
         this.vx = this.velocity * Math.cos(this.direction)
         this.vy = this.velocity * Math.sin(this.direction)
     }
@@ -77,7 +74,6 @@ class Particle{
     update(){
         this.vy += this.gravity
 
-        // Move particle using velocity components
         this.position.x += this.vx
         this.position.y += this.vy
 
@@ -87,12 +83,12 @@ class Particle{
     }
 
     getAlpha(){
-        const percent = (Time.time - this.startTime)/(this.lifetime)
-        return (1-percent) * this.startAlpha + percent * this.endAlpha
+        const percent = (Time.time - this.startTime) / (this.lifetime)
+        return (1 - percent) * this.startAlpha + percent * this.endAlpha
     }
 }
 
-class ParticleSystem extends Component{
+class ParticleSystem extends Component {
     particles = []
     startParticles = new ConstantDistribution(10)
     particleVelocity = new ConstantDistribution(1)
@@ -113,7 +109,7 @@ class ParticleSystem extends Component{
         
         this.drawParticle(this.startParticleCount)
 
-        this.currentInteval = this.continousSpawnInterval.sample()
+        this.currentInterval = this.continousSpawnInterval.sample()
     }
 
     update(){
@@ -131,15 +127,11 @@ class ParticleSystem extends Component{
             this.drawParticle(particleCountDifference)
         }
 
-        if(this.continousParticleSpawning && this.spawnTimer >= this.currentInteval && this.currentInteval >= 0){
+        if(this.continousParticleSpawning && this.spawnTimer > this.currentInterval && this.currentInterval >= 0){
             this.drawParticle(this.continousSpawnParticleCount.sample())
 
             this.spawnTimer = 0
-            this.currentInteval = this.continousSpawnInterval.sample()
-        }
-
-        if(this.particles.length <= 0 && this.continousParticleSpawning){
-            this.gameObject.destroy()
+            this.currentInterval = this.continousSpawnInterval.sample()
         }
     }
 
