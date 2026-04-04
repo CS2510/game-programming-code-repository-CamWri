@@ -23,6 +23,7 @@
     <script src="./engine/Time.js"></script>    
     <script src="./engine/Collisions.js"></script>    
     <script src="./engine/Events.js"></script>    
+    <script src="./engine/SceneManager.js"></script>    
 
     <script src="./engine/components/Transform.js"></script>
     <script src="./engine/components/TextLabel.js"></script>
@@ -85,7 +86,7 @@
     <script src="./game/StatusEffects/Debuff/SpeedDebuffStatusEffect.js"></script>
 
     <script>
-        Engine.currentScene = new BattleScene()
+        SceneManager.currentScene = new BattleScene()
         Engine.start()
     </script>
 </body>

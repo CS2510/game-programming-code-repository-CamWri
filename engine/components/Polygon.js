@@ -7,12 +7,10 @@ class Polygon extends Component{
     draw(ctx){
         ctx.save()
 
-        ctx.translate(this.transform.position.x, this.transform.position.y)
-
         ctx.beginPath()
 
         for(const point of this.points){
-            ctx.lineTo(point.x * this.transform.scale.x, point.y * this.transform.scale.y)
+            ctx.lineTo(point.x, point.y)
         }
 
         ctx.closePath()

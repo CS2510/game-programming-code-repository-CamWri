@@ -97,8 +97,7 @@ class TurnManagerComponent extends Component{
     }
 
     waitForPlayerAction(){
-        const currentCharacterComponent = this.currentCharacter.getComponent(CharacterComponent)
-        currentCharacterComponent.hasPriority = true
+        this.currentCharacter.getComponent(CharacterComponent).hasPriority = true
     }
 
     enemyTurn(){

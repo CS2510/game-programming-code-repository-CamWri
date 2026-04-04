@@ -39,7 +39,6 @@ class CharacterComponent extends Component{
 
    startTurn(){
         for(const effect of this.statusEffects){
-            console.log(effect)
             effect.onTurnStart(this)
         }
         this.canStartTurn = false

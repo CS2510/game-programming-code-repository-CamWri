@@ -1,6 +1,4 @@
 class Engine {
-    static currentScene
-
     static canvas 
     static ctx 
 
@@ -23,7 +21,7 @@ class Engine {
 
         addEventListener("contextmemu", e=>e.preventDefault())
 
-        Engine.currentScene.start()
+        SceneManager.getActiveScene().start()
         Engine.gameLoop()
     }
 
@@ -40,17 +38,18 @@ class Engine {
         Engine.draw()
         Input.update()
         Time.update()
+        SceneManager.update()
         requestAnimationFrame(Engine.gameLoop)
     }
 
     static update(){
-        Engine.currentScene.update()
+        SceneManager.getActiveScene().update()
     }
 
     static draw(){        
         Engine.canvas.width = window.innerWidth
         Engine.canvas.height = window.innerHeight
             
-        Engine.currentScene.draw(Engine.ctx)
+        SceneManager.getActiveScene().draw(Engine.ctx)
     }
 }

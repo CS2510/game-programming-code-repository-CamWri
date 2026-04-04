@@ -69,24 +69,28 @@ class Collisions {
     }
 
     static isCollisionPointGameObject(point, gameObject) {
-        const polygon = gameObject.getComponent(Collider)
-        const transformedPoints = polygon.points.map(p => new Vector2(p.x * gameObject.transform.scale.x, p.y * gameObject.transform.scale.y).add(gameObject.transform.position))
+        const transformedPoints = gameObject.getComponent(Collider).points.map(p => Vector2.fromDOMPoint(gameObject.transform.getWorldMatrix().transformPoint(p.toDOMPoint())))
         let result = Collisions.isOverlap(point, transformedPoints)
         if (!result) return false
 
-        let a = point.minus(gameObject.transform.position)
+        const worldMatrix = gameObject.transform.getWorldMatrix()
+
+        let a = point.minus(new Vector2(worldMatrix.e, worldMatrix.f))
         let dot = a.dot(result)
         if (dot < 0) return result.times(-1)
         return result
     }
 
     static isCollisionGameObjectGameObject(a, b){
-        const transformedA = a.getComponent(Collider).points.map(p => new Vector2(p.x * a.transform.scale.x, p.y * a.transform.scale.y).add(a.transform.position))
-        const transformedB = b.getComponent(Collider).points.map(p => new Vector2(p.x * b.transform.scale.x, p.y * b.transform.scale.y).add(b.transform.position))
+        const transformedA = a.getComponent(Collider).points.map(p => Vector2.fromDOMPoint(a.transform.getWorldMatrix().transformPoint(p.toDOMPoint())))
+        const transformedB = b.getComponent(Collider).points.map(p => Vector2.fromDOMPoint(b.transform.getWorldMatrix().transformPoint(p.toDOMPoint())))
         let result = Collisions.isOverlapVertices(transformedA, transformedB)
         if (!result) return false
 
-        let temp = a.transform.position.minus(b.transform.position)
+        const aWorldMatrix = a.transform.getWorldMatrix()
+        const bWorldMatrix = b.transform.getWorldMatrix()
+
+        let temp = new Vector2(aWorldMatrix.e, aWorldMatrix.f).minus(new Vector2(bWorldMatrix.e, bWorldMatrix.f))
         let dot = temp.dot(result)
         if (dot < 0) return result.times(-1)
         return result

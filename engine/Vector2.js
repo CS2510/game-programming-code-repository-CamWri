@@ -57,4 +57,12 @@ class Vector2 {
     clone(){
         return new Vector2(this.x, this.y)
     }
+
+    toDOMPoint(){
+        return new DOMPoint(this.x, this.y)
+    }
+
+    static fromDOMPoint(domPoint){
+        return new Vector2(domPoint.x, domPoint.y)
+    }
 }
