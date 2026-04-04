@@ -20,7 +20,9 @@ class AutoTargetActionComponent extends ActionComponent{
 
     start(){
         // @ts-ignore
-        instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
+        let spellRangeGameObject = instantiate(new SpellRangeGameObject(this.constructor.range), new Vector2(0, 0))
+        spellRangeGameObject.transform.setParent(this.transform)
+
         if(this.canSelectEnemyCharacters) Events.registerListener("Enemy Can Be Targeted", this)
         if(this.canSelectPlayerCharacters) Events.registerListener("Player Can Be Targeted", this)
         if(this.onlySelectSelf) {
@@ -106,7 +108,7 @@ class AutoTargetActionComponent extends ActionComponent{
     }
 
     onDestroy(){
-        GameObject.find("Spell Range Game Object").destroy()
+        GameObject.find("Spell Range Game Object")?.destroy()
     }
 
     canCancel(){

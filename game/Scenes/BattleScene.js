@@ -25,8 +25,5 @@ class BattleScene extends Scene{
         enemyHealthText.addComponent(new StartText(), {label: "Enemy Health"})
 
         //this.instantiate(new ParticleSystemExampleGameObject(), new Vector2(500, 500))
-
-        this.instantiate(new HorizontalWallGameObject(), new Vector2(800, 130))
-        this.instantiate(new HorizontalWallGameObject(), new Vector2(800, 700))
     }
 }

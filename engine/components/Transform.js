@@ -14,14 +14,12 @@ class Transform extends Component{
         matrix.translateSelf(this.position.x, this.position.y)
         matrix.scaleSelf(this.scale.x, this.scale.y)
         matrix.rotateSelf(this.rotation * 180/Math.PI)
-
         return matrix
     }
 
     getWorldMatrix(){
-        if(!this.parent){
+        if(!this.parent)
             return this.getLocalMatrix()
-        } 
         return this.parent.getWorldMatrix().multiply(this.getLocalMatrix())
     }
 }

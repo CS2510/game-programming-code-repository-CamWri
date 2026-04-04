@@ -10,7 +10,6 @@ class SpellRangeGameObject extends GameObject{
         })
         this.addComponent(new Collider(), {isTrigger: true})
 
-        this.addComponent(new SpellRangeIndicatorComponent(), {spellRange: new Vector2(range, range)})
-
+        this.transform.scale = new Vector2(range, range)
     }
 }

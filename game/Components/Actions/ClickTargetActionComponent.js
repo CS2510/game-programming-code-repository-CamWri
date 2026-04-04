@@ -13,7 +13,8 @@ class ClickTargetActionComponent extends ActionComponent{
         Events.registerListener("AOE End", this)
 
         // @ts-ignore
-        instantiate(new SpellRangeGameObject(this.constructor.range), this.gameObject.transform.position.clone())
+        let spellRangeGameObject = instantiate(new SpellRangeGameObject(this.constructor.range), new Vector2(0, 0))
+        spellRangeGameObject.transform.setParent(this.transform)
     }
 
     update(){
@@ -31,7 +32,7 @@ class ClickTargetActionComponent extends ActionComponent{
     }
 
     onDestroy(){
-        GameObject.find("Spell Range Game Object").destroy()
+        GameObject.find("Spell Range Game Object")?.destroy()
     }
 
     canCancel(){

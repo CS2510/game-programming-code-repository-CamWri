@@ -1,4 +1,4 @@
-class GameObject{
+class GameObject {
     static nextID = 0
 
     components = []
@@ -7,20 +7,22 @@ class GameObject{
     name
     physicsStatic = false
     id
+    scene
 
-    constructor(name){
+    constructor(name) {
         this.addComponent(new Transform())
         this.name = name
         this.id = GameObject.nextID
         GameObject.nextID++
+        this.scene = SceneManager.getActiveScene()
     }
 
-    addComponent(component, options){
+    addComponent(component, options) {
         Object.assign(component, options)
         this.components.push(component)
         component.gameObject = this
 
-        if(this.hasStarted){
+        if (this.hasStarted) {
             component.start?.()
         }
 
@@ -28,19 +30,19 @@ class GameObject{
     }
 
     //Only tells the parents
-    sendMessage(message, args = []){
-        for(const compoenent of this.components){
+    sendMessage(message, args = []) {
+        for (const compoenent of this.components) {
             compoenent[message]?.(...args)
         }
     }
 
     //Tell the children game Objects and parent 
-    broadCastMessage(message, args = []){
-        for(const compoenent of this.components){
+    broadCastMessage(message, args = []) {
+        for (const compoenent of this.components) {
             compoenent[message]?.(...args)
         }
 
-        for(const child of SceneManager.getActiveScene().gameObjects.filter(go => go.transform.parent == this)){
+        for (const child of SceneManager.getActiveScene().gameObjects.filter(go => go.transform.parent == this)) {
             child.broadCastMessage(message, args)
         }
     }
@@ -49,7 +51,7 @@ class GameObject{
         this.sendMessage("start")
     }
 
-    update(){
+    update() {
         if (!this.hasStarted) {
             this.hasStarted = true
             this.start()
@@ -58,7 +60,7 @@ class GameObject{
         this.sendMessage("update")
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.save()
 
         ctx.setTransform(ctx.getTransform().multiply(this.transform.getWorldMatrix()))
@@ -68,23 +70,23 @@ class GameObject{
         ctx.restore()
     }
 
-    destroy(){
+    destroy() {
         this.markForDestroy = true
-        
-        for (let component of this.components){
+
+        /*for (let component of this.components){
             component.destroy()
-        }
+        }*/
     }
 
-    getComponent(type){
+    getComponent(type) {
         return this.components.find(c => c instanceof type)
     }
 
-    get transform(){
+    get transform() {
         return this.components[0]
     }
 
-    static find(name){
+    static find(name) {
         return SceneManager.getActiveScene().gameObjects.find(go => go.name == name)
     }
 }
