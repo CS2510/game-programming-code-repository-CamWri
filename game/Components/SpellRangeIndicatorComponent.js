@@ -7,4 +7,8 @@ class SpellRangeIndicatorComponent extends Component{
     start(){
         this.transform.scale = this.spellRange
     }
+
+    updateScale(newScale){
+        this.transform.scale = newScale
+    }
 }

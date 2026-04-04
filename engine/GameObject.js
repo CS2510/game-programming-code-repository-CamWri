@@ -27,14 +27,26 @@ class GameObject{
         return component
     }
 
-    broadCastMessage(message, args = []){
+    //Only tells the parents
+    sendMessage(message, args = []){
         for(const compoenent of this.components){
             compoenent[message]?.(...args)
         }
     }
 
+    //Tell the children game Objects and parent 
+    broadCastMessage(message, args = []){
+        for(const compoenent of this.components){
+            compoenent[message]?.(...args)
+        }
+
+        for(const child of SceneManager.getActiveScene().gameObjects.filter(go => go.transform.parent == this)){
+            child.broadCastMessage(message, args)
+        }
+    }
+
     start() {
-        this.broadCastMessage("start")
+        this.sendMessage("start")
     }
 
     update(){
@@ -43,13 +55,17 @@ class GameObject{
             this.start()
         }
 
-        this.broadCastMessage("update")
+        this.sendMessage("update")
     }
 
     draw(ctx){
-        for(const component of this.components){
-            component.draw?.(ctx)
-        }
+        ctx.save()
+
+        ctx.setTransform(ctx.getTransform().multiply(this.transform.getWorldMatrix()))
+
+        this.sendMessage("draw", [ctx])
+
+        ctx.restore()
     }
 
     destroy(){
@@ -69,6 +85,6 @@ class GameObject{
     }
 
     static find(name){
-        return Engine.currentScene.gameObjects.find(go => go.name == name)
+        return SceneManager.getActiveScene().gameObjects.find(go => go.name == name)
     }
 }

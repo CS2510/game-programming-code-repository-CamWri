@@ -13,10 +13,7 @@ class PlayerComponent extends CharacterComponent{
         this.canceledThisFrame = false
 
         if(this.hasPriority){
-            //console.log("Priority:", this.statusEffects)
-
             if(this.canStartTurn){
-                console.log("Start Turn")
                 this.startTurn()
             }
         
