@@ -1,6 +1,6 @@
 class BurnEffect extends StatusEffect {
     constructor(duration, damage) {
-        super(duration)
+        super(duration, "Burn")
         this.damage = damage
     }
 

@@ -15,7 +15,6 @@ class SceneManager {
     static loadScene(newScene, addative = false) {
         if (!addative) {
             SceneManager.nextScene = newScene
-            console.log(newScene)
         } else {
             const addativeScene = new newScene()
             for (const gameObject of addativeScene.gameObjects) {

@@ -1,6 +1,10 @@
 class Scene {
     gameObjects = []
 
+    //Parker
+    //Tomas
+    //three amigos 
+
     lastFrameMouseCollisions = []
     lastFrameCollisions = []
     previousMouseDowns = []

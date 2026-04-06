@@ -14,7 +14,8 @@ class GameObject {
         this.name = name
         this.id = GameObject.nextID
         GameObject.nextID++
-        this.scene = SceneManager.getActiveScene()
+        //Calling SceneManager.getActiveScene() here will return undefined because of how we are loading our initial scene
+        //this.scene = SceneManager.getActiveScene()
     }
 
     addComponent(component, options) {

@@ -1,6 +1,6 @@
 class SpeedDebuff extends StatusEffect {
     constructor(duration, percent) {
-        super(duration)
+        super(duration, "Slow")
         this.percent = percent
     }
 

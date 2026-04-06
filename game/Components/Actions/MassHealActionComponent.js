@@ -21,7 +21,9 @@ class MassHealActionComponent extends AutoTargetActionComponent{
             this.firedProjectiles = true
 
             for(let player of this.currentTargets){
-                Events.handleEvent("Update Stats", [player, "CurrentHealth", HealSelfActionComponent.healingAmount])
+                let characterComponent = player.getComponent(CharacterComponent)
+
+                characterComponent.applyHeal(MassHealActionComponent.healingAmount)
             }
         }
     }

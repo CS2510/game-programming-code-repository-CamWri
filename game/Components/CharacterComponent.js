@@ -1,10 +1,10 @@
-class CharacterComponent extends Component{
+class CharacterComponent extends Component {
     hasPriority = false
-    
+
     canStartTurn = true
 
-    // What your character is
-    baseStats = {"Speed": 100, "MaxMovement": 800, "MaxHealth": 16, }
+    // What your character is (core stats before modifiers and any actions taken or recieved)
+    baseStats = { "Speed": 100, "MaxMovement": 800, "MaxHealth": 16, }
 
     //What your character currently has
     derivedStats = {}
@@ -20,12 +20,13 @@ class CharacterComponent extends Component{
 
     outlineColor = "magenta"
 
-    constructor(){
+    constructor() {
         super()
     }
 
-    start(){
+    start() {
         this.derivedStats["CurrentHealth"] = this.getStat("MaxHealth")
+        this.derivedStats["MaxHealth"] = this.getStat("MaxHealth")
         this.derivedStats["RemainingMovement"] = this.getStat("MaxMovement")
 
         for (const key in this.abilities) {
@@ -33,16 +34,20 @@ class CharacterComponent extends Component{
         }
     }
 
-    applyDamage(damageAmount){
-        this.updateDerivedStat("CurrentHealth", Math.max(0,this.derivedStats["CurrentHealth"] - damageAmount))
+    applyDamage(damageAmount) {
+        this.updateDerivedStat("CurrentHealth", Math.max(0, this.getDerivedStat("CurrentHealth") - damageAmount))
     }
 
-   startTurn(){
-        for(const effect of this.statusEffects){
+    applyHeal(healingAmount) {
+        this.updateDerivedStat("CurrentHealth", Math.min(this.getDerivedStat("MaxHealth"), this.getDerivedStat("CurrentHealth") + healingAmount))
+    }
+
+    startTurn() {
+        for (const effect of this.statusEffects) {
             effect.onTurnStart(this)
         }
         this.canStartTurn = false
-   }
+    }
 
     endTurn() {
         // Reduce cooldowns
@@ -65,35 +70,45 @@ class CharacterComponent extends Component{
     }
 
     //Permanent Updates
-    modifyBaseStat(stat, amount){
+    modifyBaseStat(stat, amount) {
         this.baseStats[stat] += amount
     }
 
     getStat(statName) {
         let value = this.baseStats[statName]
 
-        for(const effect of this.statusEffects){
+        for (const effect of this.statusEffects) {
             value = effect.modifyStat(statName, value)
         }
 
         return value
     }
 
-    updateDerivedStat(statName, value){
-        if(this.derivedStats.hasOwnProperty(statName)){
+    updateDerivedStat(statName, value) {
+        if (this.derivedStats.hasOwnProperty(statName)) {
             this.derivedStats[statName] = value
         }
     }
 
-    onMouseOver(){
-        let playerCharacter = GameObject.find("Turn Manager Game Object").getComponent(TurnManagerComponent).currentCharacter
-
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue(`${playerCharacter.transform.position.minus(this.transform.position).magnitude.toFixed(2)}`)
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue(`${this.derivedStats["CurrentHealth"]}/${this.getStat("MaxHealth")}`)
+    getDerivedStat(statName) {
+        if (this.derivedStats.hasOwnProperty(statName)) {
+            return this.derivedStats[statName]
+        }
     }
 
-    onMouseExit(){
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue("")
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue("")
+    onMouseEnter() {
+        SceneManager.loadScene(ToolTipCharacterScene, true)
+
+        GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateToolTipPosition(this.transform.position.add(new Vector2(-100, 100)))
+        GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateDisplayedStats(this.gameObject)
+
+    }
+
+    onMouseExit() {
+        for (let gameObject of SceneManager.getActiveScene().gameObjects) {
+            if (gameObject.scene.constructor.name == "ToolTipCharacterScene") {
+                gameObject.destroy()
+            }
+        }
     }
 }

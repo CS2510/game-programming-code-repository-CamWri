@@ -18,8 +18,11 @@ class HealSelfActionComponent extends AutoTargetActionComponent{
         super.update()
 
         if(!this.firedProjectiles && Input.keysDownThisFrame.includes("Enter")){
-            Events.handleEvent("Update Stats", [this.gameObject, "CurrentHealth", HealSelfActionComponent.healingAmount])
             this.firedProjectiles = true
+
+            let characterComponent = this.gameObject.getComponent(CharacterComponent)
+            
+            characterComponent.applyHeal(HealSelfActionComponent.healingAmount)
         }
     }
 }

@@ -1,6 +1,6 @@
 class SpeedBuff extends StatusEffect {
     constructor(duration, percent) {
-        super(duration, "Speed Percentage Buff")
+        super(duration, "Fast")
         this.percent = percent
     }
 

@@ -1,29 +1,31 @@
-class TurnOrderManagerComponent extends Component{
+class TurnOrderManagerComponent extends Component {
     player
-    
-    constructor(){
+
+    constructor() {
         super()
     }
 
-    start(){
+    start() {
         this.player.getComponent(Polygon).fillStyle = this.player instanceof PlayerCharacterGameObject ? "green" : "red";
         this.gameObject.getComponent(Polygon).strokeStyle = this.player instanceof PlayerCharacterGameObject ? "green" : "red";
     }
 
-    onMouseOver(){
-        let playerCharacter = GameObject.find("Turn Manager Game Object").getComponent(TurnManagerComponent).currentCharacter
-        let stats = this.player.getComponent(CharacterComponent)
+    onMouseEnter() {
+        SceneManager.loadScene(ToolTipCharacterScene, true)
+        GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateToolTipPosition(this.transform.position.add(new Vector2(-100, 100)))
+        GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateDisplayedStats(this.player)
+
 
         this.player.getComponent(Polygon).fillStyle = "purple"
-
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue(`${playerCharacter.transform.position.minus(this.player.transform.position).magnitude.toFixed(2)}`)
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue(`${stats.derivedStats["CurrentHealth"]}/${stats.getStat("MaxHealth")}`)
     }
 
-    onMouseExit(){
-        this.player.getComponent(Polygon).fillStyle = this.player instanceof PlayerCharacterGameObject ? "green" : "red";
+    onMouseExit() {
+        for (let gameObject of SceneManager.getActiveScene().gameObjects) {
+            if (gameObject.scene.constructor.name == "ToolTipCharacterScene") {
+                gameObject.destroy()
+            }
+        }
 
-        GameObject.find("Range Text Game Object").getComponent(StartText).setValue("")
-        GameObject.find("Health Text Game Object").getComponent(StartText).setValue("")
+        this.player.getComponent(Polygon).fillStyle = this.player instanceof PlayerCharacterGameObject ? "green" : "red";
     }
 }
