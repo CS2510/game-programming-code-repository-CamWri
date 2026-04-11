@@ -1,15 +1,22 @@
 class Scene {
     gameObjects = []
 
-    //Parker
-    //Tomas
-    //three amigos 
-
     lastFrameMouseCollisions = []
+    //Added Point Collisions
+    lastFramePointCollisions = []
     lastFrameCollisions = []
     previousMouseDowns = []
+    //Added for previousPointDowns
+    previousPointDowns = []
 
-    instantiate(gameObject, position) {
+    constructor(isAddative = false){
+        if(typeof Camera != "undefined" && !isAddative){
+            const camera = this.instantiate(new GameObject("Camera"), new Vector2(0, 0))
+            camera.addComponent(new Camera())
+        }
+    }
+
+    instantiate(gameObject, position = new Vector2(0, 0)) {
         gameObject.scene = this
         this.gameObjects.push(gameObject)
         gameObject.components[0].position = position
@@ -30,15 +37,30 @@ class Scene {
         }
 
         let thisFrameMouseCollisions = []
+        //Added an extra variable for MousePointers
+        let thisFrameMousePointers = []
         let collidables = this.gameObjects.filter(go => go.getComponent(Collider))
         let rigidBodies = this.gameObjects.filter(go => go.getComponent(RigidBody))
 
         if (Input.mousePosition) {
+            const matrix = new DOMMatrix()
+            matrix.translateSelf(Engine.canvas.width / 2, Engine.canvas.height / 2)
+            matrix.multiplySelf(Camera.main.transform.getWorldMatrix().inverse())
+            const mouse = Vector2.fromDOMPoint(matrix.inverse().transformPoint(Input.mousePosition.toDOMPoint()))
+
             for (const collidable of collidables) {
                 if (Collisions.isCollisionPointGameObject(Input.mousePosition, collidable))
                     thisFrameMouseCollisions.push(collidable)
             }
+
+            //Added a second for loop for Mouse Pointer Collisions In UI
+            for (const gameObject of this.gameObjects.filter(go => go.layer == "UI")){
+                if (Collisions.isCollisionPointGameObject(Input.mousePosition, gameObject))
+                    thisFrameMousePointers.push(gameObject)
+            }
         }
+
+        //Mouse Collisions in the Game
         for (const collidable of thisFrameMouseCollisions) {
             if (this.lastFrameMouseCollisions.includes(collidable))
                 collidable.sendMessage("onMouseOver")
@@ -83,9 +105,42 @@ class Scene {
             }
         }
 
+        //Mouse Pointers for collisions with UI
+        for (const collidable of thisFrameMousePointers) {
+            if (this.lastFramePointCollisions.includes(collidable))
+                collidable.sendMessage("onPointerOver")
+            else
+                collidable.sendMessage("onPointerEnter")
+        }
+        for (const collidable of this.lastFramePointCollisions) {
+            if (!thisFrameMousePointers.includes(collidable)) {
+                collidable.sendMessage("onPointerExit")
+                this.previousPointDowns = this.previousPointDowns.filter(go => go != collidable)
+            }
+        }
+
+        if (Input.mouseButtonsDownThisFrame.includes(0)) {
+            for (const collidable of thisFrameMousePointers) {
+                collidable.sendMessage("onPointerDown")
+                if (!this.previousPointDowns.includes(collidable)) {
+                    this.previousPointDowns.push(collidable)
+                }
+            }
+        }
+
+        if (Input.mouseButtonsUpThisFrame.includes(0)) {
+            for (const collidable of thisFrameMousePointers) {
+                collidable.sendMessage("onPointerUp")
+                if (this.previousPointDowns.includes(collidable)) {
+                    collidable.sendMessage("onPointerUpAsButton")
+                }
+            }
+            this.previousPointDowns = []
+        }
 
 
         this.lastFrameMouseCollisions = thisFrameMouseCollisions
+        this.lastFramePointCollisions = thisFrameMousePointers
         const activeCollisions = []
         const rigidbodyCollisions = []
 
@@ -168,7 +223,21 @@ class Scene {
     }
 
     draw(ctx) {
-        for (const gameObject of this.gameObjects) {
+        ctx.save()
+
+        ctx.translate(Engine.canvas.width/2, Engine.canvas.height/2)
+
+        ctx.setTransform(ctx.getTransform().multiply(Camera.main.transform.getWorldMatrix().inverse()))
+
+        for(const layer of Engine.layers.filter(l => l != "UI")){   
+            for (const gameObject of this.gameObjects.filter(go => go.layer == layer)) {
+                gameObject.draw(ctx)
+            }
+        }
+
+        ctx.restore()
+
+        for(const gameObject of this.gameObjects.filter(go => go.layer == "UI")){
             gameObject.draw(ctx)
         }
     }

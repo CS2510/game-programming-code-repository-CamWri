@@ -8,14 +8,15 @@ class GameObject {
     physicsStatic = false
     id
     scene
+    layer = "default"
+    tag = ""
 
-    constructor(name) {
+    constructor(name, options = {}) {
         this.addComponent(new Transform())
         this.name = name
         this.id = GameObject.nextID
         GameObject.nextID++
-        //Calling SceneManager.getActiveScene() here will return undefined because of how we are loading our initial scene
-        //this.scene = SceneManager.getActiveScene()
+        Object.assign(this, options)
     }
 
     addComponent(component, options) {
@@ -89,5 +90,9 @@ class GameObject {
 
     static find(name) {
         return SceneManager.getActiveScene().gameObjects.find(go => go.name == name)
+    }
+
+    static findGameObjectByTag(tag){
+        return SceneManager.getActiveScene().gameObjects.filter(go => go.tag == tag)
     }
 }

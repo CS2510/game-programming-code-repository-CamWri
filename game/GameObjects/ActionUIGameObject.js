@@ -1,6 +1,6 @@
 class ActionUIGameObject extends GameObject{
     constructor(){
-        super()
+        super("Action UI Box", {layer: "UI"})
 
         this.addComponent(new Polygon(), {
             points: [new Vector2(-1, -1), new Vector2(-1, 1), new Vector2(1, 1), new Vector2(1, -1)], 

@@ -69,7 +69,15 @@ class Collisions {
     }
 
     static isCollisionPointGameObject(point, gameObject) {
-        const transformedPoints = gameObject.getComponent(Collider).points.map(p => Vector2.fromDOMPoint(gameObject.transform.getWorldMatrix().transformPoint(p.toDOMPoint())))
+        let transformedPoints
+        if(gameObject.getComponent(Collider)){
+            transformedPoints = gameObject.getComponent(Collider).points.map(p => Vector2.fromDOMPoint(gameObject.transform.getWorldMatrix().transformPoint(p.toDOMPoint())))
+        } else if (gameObject.getComponent(Polygon)){
+            transformedPoints = gameObject.getComponent(Polygon).points.map(p => p.add(gameObject.transform.position))
+        } else {
+            return false 
+        }
+
         let result = Collisions.isOverlap(point, transformedPoints)
         if (!result) return false
 

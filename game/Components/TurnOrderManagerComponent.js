@@ -10,7 +10,8 @@ class TurnOrderManagerComponent extends Component {
         this.gameObject.getComponent(Polygon).strokeStyle = this.player instanceof PlayerCharacterGameObject ? "green" : "red";
     }
 
-    onMouseEnter() {
+    onPointerEnter() {
+        Globals.CharacterToolTipLayer = "UI"
         SceneManager.loadScene(ToolTipCharacterScene, true)
         GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateToolTipPosition(this.transform.position.add(new Vector2(-100, 100)))
         GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateDisplayedStats(this.player)
@@ -19,7 +20,7 @@ class TurnOrderManagerComponent extends Component {
         this.player.getComponent(Polygon).fillStyle = "purple"
     }
 
-    onMouseExit() {
+    onPointerExit() {
         for (let gameObject of SceneManager.getActiveScene().gameObjects) {
             if (gameObject.scene.constructor.name == "ToolTipCharacterScene") {
                 gameObject.destroy()

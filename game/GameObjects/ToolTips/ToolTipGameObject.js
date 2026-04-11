@@ -1,6 +1,6 @@
 class ToolTipGameObject extends GameObject{
-    constructor(scale){
-        super()
+    constructor(scale, layer = "default"){
+        super("ToolTipGameObject", {layer: layer})
 
         this.addComponent(new Polygon(), {
             points: [new Vector2(-1, -1), new Vector2(-1, 1), new Vector2(1, 1), new Vector2(1, -1)], 

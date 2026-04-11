@@ -97,7 +97,11 @@ class CharacterComponent extends Component {
     }
 
     onMouseEnter() {
+        console.log("On Mouse Enter")
+        Globals.CharacterToolTipLayer = "default"
         SceneManager.loadScene(ToolTipCharacterScene, true)
+
+        console.log(GameObject.find("Parent Tool Tip").transform.position)
 
         GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateToolTipPosition(this.transform.position.add(new Vector2(-100, 100)))
         GameObject.find("Parent Tool Tip")?.getComponent(ManageCharacterUIToolTipComponent).updateDisplayedStats(this.gameObject)

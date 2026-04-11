@@ -1,6 +1,6 @@
 class TurnOrderIndexGameObject extends GameObject{
     constructor(player){
-        super()
+        super("Turn Order Index", {layer: "UI"})
 
         this.addComponent(new Polygon(), {
             points: [new Vector2(40, 50), new Vector2(-40, 50), new Vector2(-40, -50), new Vector2(40, -50)],
@@ -10,7 +10,5 @@ class TurnOrderIndexGameObject extends GameObject{
         })
 
         this.addComponent(new TurnOrderManagerComponent(), {player: player})
-
-        this.addComponent(new Collider(), {isTrigger: true})
     }
 }

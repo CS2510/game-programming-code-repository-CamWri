@@ -4,7 +4,16 @@ class Engine {
 
     static lastTimeStamp
 
-    static start() {
+    static layers = ["default", "UI"]
+
+    static start(options) {
+        
+        if(options){
+            if(options.layers){
+                Engine.layers.push(...options.layers)
+            }
+        }
+
         Engine.canvas = document.querySelector("#canv")
         Engine.ctx = Engine.canvas.getContext("2d")
 

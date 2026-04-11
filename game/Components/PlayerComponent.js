@@ -13,6 +13,8 @@ class PlayerComponent extends CharacterComponent{
         this.canceledThisFrame = false
 
         if(this.hasPriority){
+            //Camera.main.transform.position = this.transform.position
+
             if(this.canStartTurn){
                 this.startTurn()
             }

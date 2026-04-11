@@ -16,7 +16,8 @@ class SceneManager {
         if (!addative) {
             SceneManager.nextScene = newScene
         } else {
-            const addativeScene = new newScene()
+            const addativeScene = new newScene(true)
+            addativeScene.gameObjects.filter(go => go.name != "Camera")
             for (const gameObject of addativeScene.gameObjects) {
                 gameObject.scene = addativeScene
                 SceneManager.currentScene.gameObjects.push(gameObject)
